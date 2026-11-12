@@ -38,7 +38,7 @@ M2/
   requirements*.txt      파이프라인용 / 키트 버전 모델용 패키지
 ```
 
-키트 코드와 생성 데이터는 TPC·bankmark 라이선스 대상이라 저장소에 넣지 않는다. 실행 결과(`runs/`)도 올리지 않는다.
+키트 코드와 생성 데이터는 TPC·bankmark 라이선스 대상이라 저장소에 넣지 않는다. 실행 결과(`runs/`)도 올리지 않고, M2 실행의 요약만 `results/`에 둔다.
 
 ## 1. 설치 (로컬 모드)
 
@@ -267,7 +267,9 @@ python -m src.checks.outputs runs/<run_id>                             # 출력�
 이미지는 Apple Silicon에서 네이티브(arm64)로 빌드된다. PDGF만 amd64 에뮬레이션으로 돈다.
 
 ```bash
-# 1) 데이터 생성 (호스트에서, 약 수 분)  -> data/sf1/{training,serving,scoring}
+# 1) 데이터 준비  -> data/sf1/{training,serving,scoring}
+#    SF1은 팀 드라이브의 sf1_data.tar.gz를 받아 M2/ 에서 푼다 (13절).
+#    새로 만들 때(SF3, SF10)는 x86 Linux에서 실행한다. 아래 참고.
 docker/gen_data.sh ~/Downloads/tpcx-ai-v2.0.0 1
 
 # 2) 이미지 빌드(처음 한 번, 약 15분)와 클러스터 시작
@@ -278,8 +280,12 @@ docker compose up -d
 docker compose exec client docker/load_hdfs.sh 1
 
 # 4) 실행 (shared, separate 두 번. 키트 버전 모델)
-docker compose exec client docker/run_cluster.sh 1            # [SF] [executors] [cores] [memory]
+docker compose exec client docker/run_cluster.sh 1            # [SF] [executors] [cores] [memory] [반복 번호]
 ```
+
+- **데이터 생성 주의**: `docker/gen_data.sh`는 PDGF를 amd64 + Java 8 컨테이너에서 돌린다. Apple Silicon Mac에서는 이 에뮬레이션에서
+  PDGF가 초기화 단계에 멈췄다. M2의 SF1 데이터는 x86 Linux에서 같은 시드로 만들어 `data/sf1/`에 복사한 것이다.
+  SF3·SF10도 x86 Linux(학교 서버, 클라우드 VM 등)에서 만든다.
 
 - 웹 UI: HDFS http://localhost:9870 (DataNode 2대, 블록 위치), YARN http://localhost:8088 (실행 중인 앱, executor 배치),
   Spark http://localhost:4040 (실행 중 단계·셔플).
@@ -310,7 +316,58 @@ docker compose exec client docker/run_cluster.sh 1            # [SF] [executors]
 - 전처리 합계(9절 기준)는 separate 52초, shared 73초로 SF1에서는 조인 결과를 저장·재사용하는 이득이 없다.
 - UC08 학습이 작업 시간의 약 60~70%다(separate 73%, shared 63%). Spark 밖 단일 프로세스라 executor를 늘려도 줄지 않을 것으로 예상되며, M3에서 확인한다.
 
-## 13. M3로 넘기는 것
+## 13. M3 인수인계
+
+### 13.1 받을 것
+
+| 무엇 | 어디서 |
+| --- | --- |
+| 코드, 실행 스크립트 | 이 저장소의 `M2/` |
+| M2 실행 기록 (SF1 7건의 `metrics.json`, `stages.csv`, `validation.json`, 클러스터 로그) | `M2/results/` (표는 `results/README.md`) |
+| SF1 데이터 `sf1_data.tar.gz` (260MB, 풀면 931MB) | 팀 드라이브. TPC 라이선스 대상이라 저장소에 없고 외부 공유 금지 |
+| M2 보고서 | 팀 드라이브 |
+
+데이터는 `M2/` 폴더에서 푼다. `data/sf1/{training,serving,scoring}`이 생긴다.
+
+```bash
+cd M2
+tar -xzf sf1_data.tar.gz
+shasum -a 256 sf1_data.tar.gz   # 51366aeabf4ffeb4b57d30099c1ea14edc1d804a13cb8971879c9302d6e3c3aa
+```
+
+### 13.2 처음 실행 (Docker를 처음 써도 되는 순서)
+
+1. Docker Desktop을 설치하고 Settings > Resources에서 메모리를 **16GB 이상**으로 올린다. 기본값으로는 UC08 학습 중에 종료된다.
+2. 아래 명령을 모두 `M2/` 폴더 안에서 실행한다.
+
+```bash
+docker compose build                                         # 처음 한 번, 약 15분
+docker compose up -d                                         # 클러스터 시작
+docker compose exec client docker/load_hdfs.sh 1             # SF1을 HDFS에 적재, 2~3분
+docker compose exec client docker/run_cluster.sh 1 2 3 4g    # shared, separate 순서로 실행
+```
+
+- `run_cluster.sh` 인자: SF, executor 수, executor당 코어, executor당 메모리, (선택) 반복 번호.
+- SF1 전체(shared + separate)는 MacBook Pro M4 Pro에서 약 12분 걸렸다. 실행 중에는 노트북을 닫지 않는다.
+- 진행 확인: YARN http://localhost:8088, HDFS http://localhost:9870.
+- 결과는 `runs/sf1_yarn_e2c3_kit_shared/`, `runs/sf1_yarn_e2c3_kit_separate/`에 생기고, 마지막에 두 실행의 비교가 출력된다.
+  `M2/results/`의 같은 이름 폴더와 점수(MSLE 4.01, accuracy 0.693)가 같으면 환경이 맞게 잡힌 것이다.
+- 같은 설정으로 다시 돌리면 `already exists`로 멈춘다. 반복 번호를 준다: `docker/run_cluster.sh 1 2 3 4g 2` → `..._r2_kit_shared`.
+- 끄기: `docker compose down`(데이터 유지), 전부 지우기: `docker compose down -v`.
+- 실제로 돌려 본 환경은 Apple Silicon Mac뿐이다. 이미지는 x86에서도 빌드되도록 되어 있지만 확인하지 못했다.
+
+### 13.3 측정할 때 주의할 점
+
+- **모델 라이브러리는 키트 버전으로 고정한다.** `run_cluster.sh`가 `/opt/kitenv`를 쓴다. 최신 버전에서는 UC08 accuracy가 0.567로 기준에 못 미친다(11절).
+- **M2의 shared/separate 비교는 조건이 같지 않다.** shared가 먼저, 적재부터 새로 하면서 돌았고 각 1회다. M3에서는 적재와 캐시 조건을 맞추고 반복 측정한다.
+- **플랫폼을 섞어 비교하지 않는다.** 같은 키트 버전이어도 UC03 예측이 arm64와 x86에서 다르다(MSLE 4.01 / 3.95).
+- **UC08 학습은 Spark 밖 단일 프로세스다.** 작업 시간의 63~73%이고 executor를 늘려도 줄지 않을 것으로 예상된다. Spark가 종료된 뒤에 도는 것은 UC08 학습·예측뿐이고, UC03 모델은 Spark가 떠 있는 동안 별도 프로세스로 돈다.
+- **메모리**: 워커당 YARN 6GB, Docker 16GB 기준이다. SF10은 이 구성에서 메모리가 모자랄 수 있으니 한 번 돌려 보고 정한다.
+- **메타스토어(Derby)는 동시에 한 실행만** 쓸 수 있다. 측정은 한 번에 하나씩 한다(10절).
+- **예측 일치 판정**: `tools/compare_runs.py`는 UC08 클래스가 완전히 같고 UC03 예측값의 최대 절대 차이가 1e-6 미만이면 `same`으로 표시한다.
+  한쪽에 파일이 없으면 그 파일은 건너뛴다. M2의 두 클러스터 실행은 네 파일 모두 차이가 0이었다.
+
+### 13.4 M3에서 할 일
 
 - SF3·SF10으로 데이터 확장, executor 수 변경, separate vs shared를 각 3회 반복 측정
 - 로컬 모드를 단일 프로세스 기준선으로 같이 측정
