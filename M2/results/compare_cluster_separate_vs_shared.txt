@@ -1,0 +1,58 @@
+== work seconds by pipeline/phase ==
+run                 sf1_yarn_e2c3_kit_separate  sf1_yarn_e2c3_kit_shared
+pipeline phase                                                          
+train    preprocess                      43.64                     62.57
+         train                          216.52                    227.55
+         load                                -                     20.83
+serve    preprocess                       4.54                      5.77
+         predict                         11.99                     11.84
+         load                                -                      3.68
+score    preprocess                       3.34                      4.48
+         predict                         10.56                     11.25
+         score                             1.0                      1.19
+         load                                -                      5.09
+
+== stage seconds ==
+run                                                sf1_yarn_e2c3_kit_separate  sf1_yarn_e2c3_kit_shared
+pipeline phase      stage                                                                              
+train    check      check_join_train                                    13.17                      7.87
+                    check_uc03_weekly                                   14.39                      5.68
+                    check_uc08_features_train                            5.01                      2.01
+                    check_uc08_labels_after_load                         0.24                      0.57
+         preprocess uc03_aggregate_weekly                                8.33                      3.49
+                    uc08_features_train                                 25.75                     35.58
+                    uc08_attach_labels                                   9.56                     10.11
+                    join_train_persist                                      -                     13.40
+         train      uc03_train                                           4.66                      6.17
+                    uc08_train                                         211.87                    221.38
+         load       ingest_train_order                                      -                      8.56
+                    ingest_train_lineitem                                   -                     11.78
+                    ingest_train_product                                    -                      0.48
+serve    check      check_uc08_features_serve                            0.88                      0.44
+                    check_outputs                                        0.07                      0.09
+         preprocess uc08_features_serve                                  4.54                      3.95
+                    join_serve_persist                                      -                      1.82
+         predict    uc03_serve_predict                                   2.26                      2.17
+                    uc08_serve_predict                                   9.72                      9.68
+         load       ingest_serve_order                                      -                      1.20
+                    ingest_serve_lineitem                                   -                      1.87
+                    ingest_serve_product                                    -                      0.27
+                    ingest_serve_store_dept                                 -                      0.34
+score    check      check_uc08_features_score                            0.67                      0.53
+         preprocess uc08_features_score                                  3.34                      3.35
+                    join_score_persist                                      -                      1.13
+         predict    uc03_score_predict                                   2.07                      2.02
+                    uc08_score_predict                                   8.49                      9.23
+         score      uc03_score                                           0.29                      0.24
+                    uc08_score                                            0.7                      0.94
+         load       ingest_score_order                                      -                      1.15
+                    ingest_score_lineitem                                   -                      2.11
+                    ingest_score_product                                    -                      0.78
+                    ingest_score_store_dept                                 -                      0.32
+                    ingest_score_order_labels                               -                      0.49
+                    ingest_score_store_dept_labels                          -                      0.25
+
+sf1_yarn_e2c3_kit_separate               mode=separate workers=6 work=291.594s checks_failed=0
+sf1_yarn_e2c3_kit_shared                 mode=shared   workers=6 work=354.249s checks_failed=0
+
+predictions: {'uc03/predictions.csv': 'same', 'uc03/scoring_predictions.csv': 'same', 'uc08/predictions.csv': 'same', 'uc08/scoring_predictions.csv': 'same'}

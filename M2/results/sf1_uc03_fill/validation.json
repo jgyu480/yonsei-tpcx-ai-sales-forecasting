@@ -1,0 +1,807 @@
+{
+  "run_id": "sf1_uc03_fill",
+  "failed": 0,
+  "checks": [
+    {
+      "check": "train.ingest",
+      "value": "skipped: clean tables reused (use --reingest to rebuild)",
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "train.order.rows_raw",
+      "value": 5200000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.order.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.order.duplicate_keys_removed",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "duplicate keys would multiply joined rows (M1 5.1) [from earlier ingest]"
+    },
+    {
+      "check": "train.order.rows_clean",
+      "value": 5200000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.order.date_range",
+      "value": "2010-01-04..2012-01-01",
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.order.weekday_mismatch",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "weekday column vs weekday of date [from earlier ingest]"
+    },
+    {
+      "check": "train.order.has_trip_type",
+      "value": true,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.lineitem.rows_raw",
+      "value": 32565017,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.lineitem.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.lineitem.rows_clean",
+      "value": 32565017,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.lineitem.price_negative",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.lineitem.quantity_zero",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.lineitem.quantity_negative",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": "kept: returns; UC08 also uses abs(quantity) [from earlier ingest]"
+    },
+    {
+      "check": "train.product.rows_raw",
+      "value": 1000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.product.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.product.duplicate_keys_removed",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "duplicate keys would multiply joined rows (M1 5.1) [from earlier ingest]"
+    },
+    {
+      "check": "train.product.rows_clean",
+      "value": 1000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.ingest",
+      "value": "skipped: clean tables reused (use --reingest to rebuild)",
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "serve.order.rows_raw",
+      "value": 520000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.order.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.order.duplicate_keys_removed",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "duplicate keys would multiply joined rows (M1 5.1) [from earlier ingest]"
+    },
+    {
+      "check": "serve.order.rows_clean",
+      "value": 520000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.order.date_range",
+      "value": "2012-01-02..2013-12-29",
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.order.weekday_mismatch",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "weekday column vs weekday of date [from earlier ingest]"
+    },
+    {
+      "check": "serve.order.has_trip_type",
+      "value": false,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.lineitem.rows_raw",
+      "value": 3261300,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.lineitem.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.lineitem.rows_clean",
+      "value": 3261300,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.lineitem.price_negative",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.lineitem.quantity_zero",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.lineitem.quantity_negative",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": "kept: returns; UC08 also uses abs(quantity) [from earlier ingest]"
+    },
+    {
+      "check": "serve.product.rows_raw",
+      "value": 1000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.product.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.product.duplicate_keys_removed",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "duplicate keys would multiply joined rows (M1 5.1) [from earlier ingest]"
+    },
+    {
+      "check": "serve.product.rows_clean",
+      "value": 1000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.store_dept.rows_raw",
+      "value": 748,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.store_dept.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.store_dept.duplicate_keys_removed",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "duplicate keys would multiply joined rows (M1 5.1) [from earlier ingest]"
+    },
+    {
+      "check": "serve.store_dept.rows_clean",
+      "value": 748,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "serve.store_dept.has_periods",
+      "value": true,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.ingest",
+      "value": "skipped: clean tables reused (use --reingest to rebuild)",
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "score.order.rows_raw",
+      "value": 520000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.order.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.order.duplicate_keys_removed",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "duplicate keys would multiply joined rows (M1 5.1) [from earlier ingest]"
+    },
+    {
+      "check": "score.order.rows_clean",
+      "value": 520000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.order.date_range",
+      "value": "2012-01-02..2013-12-29",
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.order.weekday_mismatch",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "weekday column vs weekday of date [from earlier ingest]"
+    },
+    {
+      "check": "score.order.has_trip_type",
+      "value": false,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.lineitem.rows_raw",
+      "value": 3261300,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.lineitem.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.lineitem.rows_clean",
+      "value": 3261300,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.lineitem.price_negative",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.lineitem.quantity_zero",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.lineitem.quantity_negative",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": "kept: returns; UC08 also uses abs(quantity) [from earlier ingest]"
+    },
+    {
+      "check": "score.product.rows_raw",
+      "value": 1000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.product.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.product.duplicate_keys_removed",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "duplicate keys would multiply joined rows (M1 5.1) [from earlier ingest]"
+    },
+    {
+      "check": "score.product.rows_clean",
+      "value": 1000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.store_dept.rows_raw",
+      "value": 748,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.store_dept.rows_dropped_incomplete",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.store_dept.duplicate_keys_removed",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": "duplicate keys would multiply joined rows (M1 5.1) [from earlier ingest]"
+    },
+    {
+      "check": "score.store_dept.rows_clean",
+      "value": 748,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.store_dept.has_periods",
+      "value": true,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.order_labels.rows",
+      "value": 520000,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "score.store_dept_labels.rows",
+      "value": 38896,
+      "expected": null,
+      "status": "INFO",
+      "note": " [from earlier ingest]"
+    },
+    {
+      "check": "train.join.lineitem_rows",
+      "value": 32565017,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "train.join.unmatched_order_id",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": "line items without an order"
+    },
+    {
+      "check": "train.join.unmatched_product_id",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": "line items without a product"
+    },
+    {
+      "check": "train.join.joined_rows",
+      "value": 32565017,
+      "expected": 32565017,
+      "status": "PASS",
+      "note": "inner join must not add rows (unique keys) or lose matched ones"
+    },
+    {
+      "check": "train.join.orders_without_items",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.weekly.total_sales_line_items",
+      "value": 360528005.24,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.weekly.total_sales_weekly",
+      "value": 360528005.24,
+      "expected": null,
+      "status": "PASS",
+      "note": "sum of line-item sales must equal sum of weekly sales"
+    },
+    {
+      "check": "uc03.weekly.max_pair_difference",
+      "value": 0.0,
+      "expected": null,
+      "status": "PASS",
+      "note": "per store-department reconciliation"
+    },
+    {
+      "check": "uc03.weekly.duplicate_keys",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "check": "uc03.weekly.week_not_friday",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "check": "uc03.weekly.pairs_with_sales",
+      "value": 517,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.weekly.observed_weeks_min_median_max",
+      "value": "97/104/104",
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.weekly.pairs_under_104_weeks",
+      "value": 39,
+      "expected": null,
+      "status": "INFO",
+      "note": "fewer than two 52-week cycles"
+    },
+    {
+      "check": "uc03.weekly.pairs_with_gaps",
+      "value": 39,
+      "expected": null,
+      "status": "INFO",
+      "note": "weeks without sales inside a pair's history; ETS treats them as consecutive"
+    },
+    {
+      "check": "uc03.weekly.missing_weeks",
+      "value": 110,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.weekly.pairs_ending_before_last_week",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": "kit forecasts from each pair's own last week; dates may miss the scoring labels"
+    },
+    {
+      "check": "uc03.weekly.week_range",
+      "value": "2010-01-08..2011-12-30",
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.weekly.kit_year_bug_rows",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": "December dates in ISO week 1; the kit assigns them to the wrong year"
+    },
+    {
+      "check": "uc03.target.line_item_sales_quantiles",
+      "value": {
+        "p5": 2.24,
+        "p50": 9.57,
+        "p95": 24.84,
+        "negative_share": 0.0
+      },
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.target.weekly_sales_quantiles",
+      "value": {
+        "p5": 98.12,
+        "p50": 2174.4,
+        "p95": 34537.59,
+        "negative_share": 0.0
+      },
+      "expected": null,
+      "status": "INFO",
+      "note": "aggregation changes the target distribution (Tolovski et al. 2026, 3.3)"
+    },
+    {
+      "check": "uc03.train.models",
+      "value": 517,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.train.model_kinds",
+      "value": {
+        "ets_seasonal": 517
+      },
+      "expected": null,
+      "status": "INFO",
+      "note": "ets_level / naive_last = seasonal fit failed; the kit has no fallback"
+    },
+    {
+      "check": "uc03.serve.requested_pairs",
+      "value": 748,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.serve.pairs_without_model",
+      "value": 231,
+      "expected": null,
+      "status": "INFO",
+      "note": "no training history: skipped, as in the kit"
+    },
+    {
+      "check": "uc03.serve.rows",
+      "value": 26884,
+      "expected": 26884,
+      "status": "PASS",
+      "note": "sum of periods over pairs with a model"
+    },
+    {
+      "check": "uc03.score.requested_pairs",
+      "value": 748,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.score.pairs_without_model",
+      "value": 231,
+      "expected": null,
+      "status": "INFO",
+      "note": "no training history: skipped, as in the kit"
+    },
+    {
+      "check": "uc03.score.rows",
+      "value": 26884,
+      "expected": 26884,
+      "status": "PASS",
+      "note": "sum of periods over pairs with a model"
+    },
+    {
+      "check": "uc03.score.label_rows",
+      "value": 38896,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.score.matched_rows",
+      "value": 26884,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.score.matched_share_of_labels",
+      "value": 0.6912,
+      "expected": null,
+      "status": "INFO",
+      "note": "labels without a matching forecast date are not scored"
+    },
+    {
+      "check": "uc03.score.matched_share_of_predictions",
+      "value": 1.0,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.score.negative_labels_clipped",
+      "value": 0,
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "uc03.score.msle",
+      "value": 3.9372,
+      "expected": null,
+      "status": "PASS",
+      "note": "TPCx-AI threshold <= 5.4"
+    },
+    {
+      "check": "uc03.score.worst_pairs",
+      "value": {
+        "10|BEDDING": 26.773,
+        "7|HOME DECOR": 24.486,
+        "10|HOME DECOR": 24.236,
+        "2|BEDDING": 23.581,
+        "5|BEDDING": 22.202
+      },
+      "expected": null,
+      "status": "INFO",
+      "note": ""
+    },
+    {
+      "check": "output.uc03.predictions.columns",
+      "value": [
+        "store",
+        "department",
+        "date",
+        "weekly_sales"
+      ],
+      "expected": [
+        "store",
+        "department",
+        "date",
+        "weekly_sales"
+      ],
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "check": "output.uc03.predictions.duplicate_keys",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "check": "output.uc03.predictions.negative_forecasts",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "check": "output.uc03.predictions.missing_values",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "check": "output.uc03.scoring_predictions.columns",
+      "value": [
+        "store",
+        "department",
+        "date",
+        "weekly_sales"
+      ],
+      "expected": [
+        "store",
+        "department",
+        "date",
+        "weekly_sales"
+      ],
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "check": "output.uc03.scoring_predictions.duplicate_keys",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "check": "output.uc03.scoring_predictions.negative_forecasts",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": ""
+    },
+    {
+      "check": "output.uc03.scoring_predictions.missing_values",
+      "value": 0,
+      "expected": 0,
+      "status": "PASS",
+      "note": ""
+    }
+  ]
+}

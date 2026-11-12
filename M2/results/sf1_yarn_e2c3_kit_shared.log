@@ -1,0 +1,236 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/06 09:37:11 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+run sf1_yarn_e2c3_kit_shared  (Spark 4.0.5, yarn 2x3 cores, mode=shared, splits=['train', 'serve', 'score'])
+[train/load] ingest_train_order ...
+[train/load] ingest_train_order: 8.565s {'rows_in': 5200000, 'rows_out': 5200000, 'cols_out': 4}
+  [--] train.order.rows_raw = 5200000
+  [--] train.order.rows_dropped_incomplete = 0
+  [ok] train.order.duplicate_keys_removed = 0 (expected 0)
+  [--] train.order.rows_clean = 5200000
+  [--] train.order.date_range = 2010-01-04..2012-01-01
+  [ok] train.order.weekday_mismatch = 0 (expected 0)
+  [--] train.order.has_trip_type = True
+[train/load] ingest_train_lineitem ...
+[train/load] ingest_train_lineitem: 11.781s {'rows_in': 32565017, 'rows_out': 32565017, 'cols_out': 4}
+  [--] train.lineitem.rows_raw = 32565017
+  [--] train.lineitem.rows_dropped_incomplete = 0
+  [--] train.lineitem.rows_clean = 32565017
+  [ok] train.lineitem.price_negative = 0 (expected 0)
+  [ok] train.lineitem.quantity_zero = 0 (expected 0)
+  [--] train.lineitem.quantity_negative = 0
+[train/load] ingest_train_product ...
+[train/load] ingest_train_product: 0.483s {'rows_in': 1000, 'rows_out': 1000, 'cols_out': 2}
+  [--] train.product.rows_raw = 1000
+  [--] train.product.rows_dropped_incomplete = 0
+  [ok] train.product.duplicate_keys_removed = 0 (expected 0)
+  [--] train.product.rows_clean = 1000
+[serve/load] ingest_serve_order ...
+[serve/load] ingest_serve_order: 1.195s {'rows_in': 520000, 'rows_out': 520000, 'cols_out': 4}
+  [--] serve.order.rows_raw = 520000
+  [--] serve.order.rows_dropped_incomplete = 0
+  [ok] serve.order.duplicate_keys_removed = 0 (expected 0)
+  [--] serve.order.rows_clean = 520000
+  [--] serve.order.date_range = 2012-01-02..2013-12-29
+  [ok] serve.order.weekday_mismatch = 0 (expected 0)
+  [--] serve.order.has_trip_type = False
+[serve/load] ingest_serve_lineitem ...
+[serve/load] ingest_serve_lineitem: 1.871s {'rows_in': 3261300, 'rows_out': 3261300, 'cols_out': 4}
+  [--] serve.lineitem.rows_raw = 3261300
+  [--] serve.lineitem.rows_dropped_incomplete = 0
+  [--] serve.lineitem.rows_clean = 3261300
+  [ok] serve.lineitem.price_negative = 0 (expected 0)
+  [ok] serve.lineitem.quantity_zero = 0 (expected 0)
+  [--] serve.lineitem.quantity_negative = 0
+[serve/load] ingest_serve_product ...
+[serve/load] ingest_serve_product: 0.273s {'rows_in': 1000, 'rows_out': 1000, 'cols_out': 2}
+  [--] serve.product.rows_raw = 1000
+  [--] serve.product.rows_dropped_incomplete = 0
+  [ok] serve.product.duplicate_keys_removed = 0 (expected 0)
+  [--] serve.product.rows_clean = 1000
+[serve/load] ingest_serve_store_dept ...
+[serve/load] ingest_serve_store_dept: 0.343s {'rows_in': 748, 'rows_out': 748, 'cols_out': 3}
+  [--] serve.store_dept.rows_raw = 748
+  [--] serve.store_dept.rows_dropped_incomplete = 0
+  [ok] serve.store_dept.duplicate_keys_removed = 0 (expected 0)
+  [--] serve.store_dept.rows_clean = 748
+  [--] serve.store_dept.has_periods = True
+[score/load] ingest_score_order ...
+[score/load] ingest_score_order: 1.146s {'rows_in': 520000, 'rows_out': 520000, 'cols_out': 4}
+  [--] score.order.rows_raw = 520000
+  [--] score.order.rows_dropped_incomplete = 0
+  [ok] score.order.duplicate_keys_removed = 0 (expected 0)
+  [--] score.order.rows_clean = 520000
+  [--] score.order.date_range = 2012-01-02..2013-12-29
+  [ok] score.order.weekday_mismatch = 0 (expected 0)
+  [--] score.order.has_trip_type = False
+[score/load] ingest_score_lineitem ...
+[score/load] ingest_score_lineitem: 2.11s {'rows_in': 3261300, 'rows_out': 3261300, 'cols_out': 4}
+  [--] score.lineitem.rows_raw = 3261300
+  [--] score.lineitem.rows_dropped_incomplete = 0
+  [--] score.lineitem.rows_clean = 3261300
+  [ok] score.lineitem.price_negative = 0 (expected 0)
+  [ok] score.lineitem.quantity_zero = 0 (expected 0)
+  [--] score.lineitem.quantity_negative = 0
+[score/load] ingest_score_product ...
+[score/load] ingest_score_product: 0.775s {'rows_in': 1000, 'rows_out': 1000, 'cols_out': 2}
+  [--] score.product.rows_raw = 1000
+  [--] score.product.rows_dropped_incomplete = 0
+  [ok] score.product.duplicate_keys_removed = 0 (expected 0)
+  [--] score.product.rows_clean = 1000
+[score/load] ingest_score_store_dept ...
+[score/load] ingest_score_store_dept: 0.32s {'rows_in': 748, 'rows_out': 748, 'cols_out': 3}
+  [--] score.store_dept.rows_raw = 748
+  [--] score.store_dept.rows_dropped_incomplete = 0
+  [ok] score.store_dept.duplicate_keys_removed = 0 (expected 0)
+  [--] score.store_dept.rows_clean = 748
+  [--] score.store_dept.has_periods = True
+[score/load] ingest_score_order_labels ...
+[score/load] ingest_score_order_labels: 0.489s {'rows_out': 520000, 'cols_out': 2}
+  [--] score.order_labels.rows = 520000
+[score/load] ingest_score_store_dept_labels ...
+[score/load] ingest_score_store_dept_labels: 0.252s {'rows_out': 38896, 'cols_out': 4}
+  [--] score.store_dept_labels.rows = 38896
+[train/preprocess] join_train_persist ...
+[train/preprocess] join_train_persist: 13.398s {'rows_out': 32565017, 'cols_out': 8}
+[serve/preprocess] join_serve_persist ...
+[serve/preprocess] join_serve_persist: 1.821s {'rows_out': 3261300, 'cols_out': 8}
+[score/preprocess] join_score_persist ...
+[score/preprocess] join_score_persist: 1.129s {'rows_out': 3261300, 'cols_out': 8}
+[train/check] check_join_train ...
+[train/check] check_join_train: 7.868s 
+  [--] train.join.lineitem_rows = 32565017
+  [--] train.join.unmatched_order_id = 0
+  [--] train.join.unmatched_product_id = 0
+  [ok] train.join.joined_rows = 32565017 (expected 32565017)
+  [--] train.join.orders_without_items = 0
+[train/preprocess] uc03_aggregate_weekly ...
+[train/preprocess] uc03_aggregate_weekly: 3.486s {'rows_out': 53658, 'cols_out': 4}
+[train/check] check_uc03_weekly ...
+[train/check] check_uc03_weekly: 5.682s 
+  [--] uc03.weekly.total_sales_line_items = 360528005.24
+  [ok] uc03.weekly.total_sales_weekly = 360528005.24
+  [ok] uc03.weekly.max_pair_difference = 0.0
+  [ok] uc03.weekly.duplicate_keys = 0 (expected 0)
+  [ok] uc03.weekly.week_not_friday = 0 (expected 0)
+  [--] uc03.weekly.pairs_with_sales = 517
+  [--] uc03.weekly.observed_weeks_min_median_max = 97/104/104
+  [--] uc03.weekly.pairs_under_104_weeks = 39
+  [--] uc03.weekly.pairs_with_gaps = 39
+  [--] uc03.weekly.missing_weeks = 110
+  [--] uc03.weekly.pairs_ending_before_last_week = 0
+  [--] uc03.weekly.week_range = 2010-01-08..2011-12-30
+  [--] uc03.weekly.kit_year_bug_rows = 0
+  [--] uc03.target.line_item_sales_quantiles = {'p5': 2.24, 'p50': 9.57, 'p95': 24.84, 'negative_share': 0.0}
+  [--] uc03.target.weekly_sales_quantiles = {'p5': 97.94, 'p50': 2174.89, 'p95': 34554.32, 'negative_share': 0.0}
+[train/train] uc03_train ...
+2026-11-06 09:38:28,654 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[train/train] uc03_train: 6.171s {'rows_out': 517}
+  [--] uc03.train.models = 517
+  [--] uc03.train.model_kinds = {'ets_seasonal': 517}
+[serve/predict] uc03_serve_predict ...
+2026-11-06 09:38:34,363 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[serve/predict] uc03_serve_predict: 2.168s {'rows_out': 26884, 'cols_out': 4}
+  [--] uc03.serve.requested_pairs = 748
+  [--] uc03.serve.pairs_without_model = 231
+  [ok] uc03.serve.rows = 26884 (expected 26884)
+[score/predict] uc03_score_predict ...
+2026-11-06 09:38:36,526 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[score/predict] uc03_score_predict: 2.016s {'rows_out': 26884, 'cols_out': 4}
+  [--] uc03.score.requested_pairs = 748
+  [--] uc03.score.pairs_without_model = 231
+  [ok] uc03.score.rows = 26884 (expected 26884)
+[score/score] uc03_score ...
+[score/score] uc03_score: 0.245s {'rows_out': 26884}
+  [--] uc03.score.label_rows = 38896
+  [--] uc03.score.matched_rows = 26884
+  [--] uc03.score.matched_share_of_labels = 0.6912
+  [--] uc03.score.matched_share_of_predictions = 1.0
+  [--] uc03.score.negative_labels_clipped = 0
+  [ok] uc03.score.msle = 4.0136
+  [--] uc03.score.worst_pairs = {'2|COOK AND DINE': 29.086, '2|BEDDING': 29.065, '10|BATH AND SHOWER': 28.401, '7|HOME DECOR': 23.911, '10|BEDDING': 23.598}
+[train/preprocess] uc08_features_train ...
+[train/preprocess] uc08_features_train: 35.575s {'rows_out': 5200000, 'cols_out': 77}
+[train/check] check_uc08_features_train ...
+[train/check] check_uc08_features_train: 2.013s 
+  [ok] uc08.features.train.rows = 5200000 (expected 5200000)
+  [ok] uc08.features.train.duplicate_order_ids = 0 (expected 0)
+  [--] uc08.features.train.items_outside_kit_departments = 0
+  [--] uc08.features.train.feature_columns = 77
+[serve/preprocess] uc08_features_serve ...
+[serve/preprocess] uc08_features_serve: 3.953s {'rows_out': 520000, 'cols_out': 77}
+[serve/check] check_uc08_features_serve ...
+[serve/check] check_uc08_features_serve: 0.44s 
+  [ok] uc08.features.serve.rows = 520000 (expected 520000)
+  [ok] uc08.features.serve.duplicate_order_ids = 0 (expected 0)
+  [--] uc08.features.serve.items_outside_kit_departments = 0
+  [--] uc08.features.serve.feature_columns = 77
+[score/preprocess] uc08_features_score ...
+[score/preprocess] uc08_features_score: 3.348s {'rows_out': 520000, 'cols_out': 77}
+[score/check] check_uc08_features_score ...
+[score/check] check_uc08_features_score: 0.526s 
+  [ok] uc08.features.score.rows = 520000 (expected 520000)
+  [ok] uc08.features.score.duplicate_order_ids = 0 (expected 0)
+  [--] uc08.features.score.items_outside_kit_departments = 0
+  [--] uc08.features.score.feature_columns = 77
+[train/preprocess] uc08_attach_labels ...
+[train/preprocess] uc08_attach_labels: 10.106s {'rows_out': 5199765, 'cols_out': 77}
+[train/check] check_uc08_labels_after_load ...
+[train/check] check_uc08_labels_after_load: 0.572s 
+  [ok] uc08.train.labels_outside_kit_set = 0 (expected 0)
+  [--] uc08.labels.after_load = {'top_class': 8, 'top_share': 0.1269, 'classes': 38, 'share': {3: 0.0381, 4: 0.0036, 5: 0.0481, 6: 0.0134, 7: 0.0601, 8: 0.1269, 9: 0.0991, 12: 0.0028, 14: 0.0, 15: 0.0103, 18: 0.0057, 19: 0.004, 20: 0.0067, 21: 0.0067, 22: 0.0098, 23: 0.0015, 24: 0.0273, 25: 0.0387, 26: 0.0052, 27: 0.0082, 28: 0.0051, 29: 0.0046, 30: 0.0114, 31: 0.0062, 32: 0.0206, 33: 0.0138, 34: 0.0075, 35: 0.0213, 36: 0.0313, 37: 0.0291, 38: 0.0304, 39: 0.1034, 40: 0.064, 41: 0.006, 42: 0.0194, 43: 0.009, 44: 0.0124, 999: 0.0883}}
+[train/train] uc08_train ...
+2026-11-06 09:39:36,316 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[train/train] uc08_train: 221.379s {'rows_out': 5199765, 'cols_out': 77}
+  [--] uc08.train.rows = 5199765
+  [--] uc08.train.classes = 37
+  [--] uc08.train.xgboost_version = 1.7.3
+  [--] uc08.train.excluded_trip_types = [14]
+  [--] uc08.labels.after_preprocess = {'top_class': 8, 'top_share': 0.1269, 'classes': 37, 'share': {3: 0.0381, 4: 0.0036, 5: 0.0481, 6: 0.0134, 7: 0.0601, 8: 0.1269, 9: 0.0991, 12: 0.0028, 15: 0.0103, 18: 0.0057, 19: 0.004, 20: 0.0067, 21: 0.0067, 22: 0.0098, 23: 0.0015, 24: 0.0273, 25: 0.0387, 26: 0.0052, 27: 0.0082, 28: 0.0051, 29: 0.0046, 30: 0.0114, 31: 0.0062, 32: 0.0206, 33: 0.0138, 34: 0.0075, 35: 0.0213, 36: 0.0313, 37: 0.0291, 38: 0.0304, 39: 0.1034, 40: 0.064, 41: 0.006, 42: 0.0194, 43: 0.009, 44: 0.0124, 999: 0.0883}}
+[serve/predict] uc08_serve_predict ...
+2026-11-06 09:43:17,681 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[serve/predict] uc08_serve_predict: 9.677s {'rows_out': 520000, 'cols_out': 2}
+  [ok] uc08.serve.rows = 520000 (expected 520000)
+[score/predict] uc08_score_predict ...
+2026-11-06 09:43:27,266 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[score/predict] uc08_score_predict: 9.232s {'rows_out': 520000, 'cols_out': 2}
+  [ok] uc08.score.rows = 520000 (expected 520000)
+[score/score] uc08_score ...
+2026-11-06 09:43:36,490 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[score/score] uc08_score: 0.942s {'rows_out': 520000}
+  [--] uc08.score.label_rows = 520000
+  [--] uc08.score.matched_rows = 520000
+  [--] uc08.labels.at_score = {'top_class': 8, 'top_share': 0.1269, 'classes': 38, 'share': {3: 0.0379, 4: 0.0036, 5: 0.0484, 6: 0.0136, 7: 0.0604, 8: 0.1269, 9: 0.0985, 12: 0.0029, 14: 0.0001, 15: 0.0104, 18: 0.0058, 19: 0.0039, 20: 0.0066, 21: 0.0067, 22: 0.0099, 23: 0.0013, 24: 0.0271, 25: 0.0386, 26: 0.0053, 27: 0.0083, 28: 0.0054, 29: 0.0045, 30: 0.0113, 31: 0.0061, 32: 0.0207, 33: 0.0138, 34: 0.0075, 35: 0.0214, 36: 0.0314, 37: 0.0292, 38: 0.0304, 39: 0.1031, 40: 0.0636, 41: 0.006, 42: 0.0195, 43: 0.0093, 44: 0.0125, 999: 0.0881}}
+  [ok] uc08.score.accuracy = 0.6934
+[serve/check] check_outputs ...
+  [ok] output.uc03.predictions.columns = ['store', 'department', 'date', 'weekly_sales'] (expected ['store', 'department', 'date', 'weekly_sales'])
+  [ok] output.uc03.predictions.duplicate_keys = 0 (expected 0)
+  [ok] output.uc03.predictions.negative_forecasts = 0 (expected 0)
+  [ok] output.uc03.predictions.missing_values = 0 (expected 0)
+  [ok] output.uc08.predictions.columns = ['o_order_id', 'trip_type'] (expected ['o_order_id', 'trip_type'])
+  [ok] output.uc08.predictions.duplicate_order_ids = 0 (expected 0)
+  [ok] output.uc08.predictions.missing_values = 0 (expected 0)
+  [ok] output.uc03.scoring_predictions.columns = ['store', 'department', 'date', 'weekly_sales'] (expected ['store', 'department', 'date', 'weekly_sales'])
+  [ok] output.uc03.scoring_predictions.duplicate_keys = 0 (expected 0)
+  [ok] output.uc03.scoring_predictions.negative_forecasts = 0 (expected 0)
+  [ok] output.uc03.scoring_predictions.missing_values = 0 (expected 0)
+  [ok] output.uc08.scoring_predictions.columns = ['o_order_id', 'trip_type'] (expected ['o_order_id', 'trip_type'])
+  [ok] output.uc08.scoring_predictions.duplicate_order_ids = 0 (expected 0)
+  [ok] output.uc08.scoring_predictions.missing_values = 0 (expected 0)
+[serve/check] check_outputs: 0.087s 
+
+done: /workspace/runs/sf1_yarn_e2c3_kit_shared
+work time 354.249s, total 376.993s
+  train/load              20.83s
+  serve/load               3.68s
+  score/load               5.09s
+  train/preprocess        62.56s
+  serve/preprocess         5.77s
+  score/preprocess         4.48s
+  train/train            227.55s
+  serve/predict           11.85s
+  score/predict           11.25s
+  score/score              1.19s
+checks failed: 0  -> see validation.json

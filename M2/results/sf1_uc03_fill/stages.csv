@@ -1,0 +1,10 @@
+run_id,sf,mode,workers,driver_memory,stage,pipeline,phase,kind,seconds,rows_out,cols_out
+sf1_uc03_fill,1,shared,2,3g,join_train_persist,train,preprocess,work,42.285,32565017,8
+sf1_uc03_fill,1,shared,2,3g,check_join_train,train,check,check,21.176,,
+sf1_uc03_fill,1,shared,2,3g,uc03_aggregate_weekly,train,preprocess,work,7.035,53658,4
+sf1_uc03_fill,1,shared,2,3g,check_uc03_weekly,train,check,check,12.683,,
+sf1_uc03_fill,1,shared,2,3g,uc03_train,train,train,work,24.576,517,
+sf1_uc03_fill,1,shared,2,3g,uc03_serve_predict,serve,predict,work,2.836,26884,4
+sf1_uc03_fill,1,shared,2,3g,uc03_score_predict,score,predict,work,1.969,26884,4
+sf1_uc03_fill,1,shared,2,3g,uc03_score,score,score,work,0.273,26884,
+sf1_uc03_fill,1,shared,2,3g,check_outputs,serve,check,check,0.032,,

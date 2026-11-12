@@ -1,0 +1,141 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/11/06 09:43:38 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+run sf1_yarn_e2c3_kit_separate  (Spark 4.0.5, yarn 2x3 cores, mode=separate, splits=['train', 'serve', 'score'])
+  [--] train.ingest = skipped: clean tables reused (use --reingest to rebuild)
+  [--] serve.ingest = skipped: clean tables reused (use --reingest to rebuild)
+  [--] score.ingest = skipped: clean tables reused (use --reingest to rebuild)
+[train/check] check_join_train ...
+[train/check] check_join_train: 13.169s 
+  [--] train.join.lineitem_rows = 32565017
+  [--] train.join.unmatched_order_id = 0
+  [--] train.join.unmatched_product_id = 0
+  [ok] train.join.joined_rows = 32565017 (expected 32565017)
+  [--] train.join.orders_without_items = 0
+[train/preprocess] uc03_aggregate_weekly ...
+[train/preprocess] uc03_aggregate_weekly: 8.33s {'rows_out': 53658, 'cols_out': 4}
+[train/check] check_uc03_weekly ...
+[train/check] check_uc03_weekly: 14.393s 
+  [--] uc03.weekly.total_sales_line_items = 360528005.24
+  [ok] uc03.weekly.total_sales_weekly = 360528005.24
+  [ok] uc03.weekly.max_pair_difference = 0.0
+  [ok] uc03.weekly.duplicate_keys = 0 (expected 0)
+  [ok] uc03.weekly.week_not_friday = 0 (expected 0)
+  [--] uc03.weekly.pairs_with_sales = 517
+  [--] uc03.weekly.observed_weeks_min_median_max = 97/104/104
+  [--] uc03.weekly.pairs_under_104_weeks = 39
+  [--] uc03.weekly.pairs_with_gaps = 39
+  [--] uc03.weekly.missing_weeks = 110
+  [--] uc03.weekly.pairs_ending_before_last_week = 0
+  [--] uc03.weekly.week_range = 2010-01-08..2011-12-30
+  [--] uc03.weekly.kit_year_bug_rows = 0
+  [--] uc03.target.line_item_sales_quantiles = {'p5': 2.24, 'p50': 9.57, 'p95': 24.84, 'negative_share': 0.0}
+  [--] uc03.target.weekly_sales_quantiles = {'p5': 98.12, 'p50': 2174.4, 'p95': 34537.59, 'negative_share': 0.0}
+[train/train] uc03_train ...
+2026-11-06 09:44:29,154 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[train/train] uc03_train: 4.659s {'rows_out': 517}
+  [--] uc03.train.models = 517
+  [--] uc03.train.model_kinds = {'ets_seasonal': 517}
+[serve/predict] uc03_serve_predict ...
+2026-11-06 09:44:33,817 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[serve/predict] uc03_serve_predict: 2.265s {'rows_out': 26884, 'cols_out': 4}
+  [--] uc03.serve.requested_pairs = 748
+  [--] uc03.serve.pairs_without_model = 231
+  [ok] uc03.serve.rows = 26884 (expected 26884)
+[score/predict] uc03_score_predict ...
+2026-11-06 09:44:36,073 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[score/predict] uc03_score_predict: 2.069s {'rows_out': 26884, 'cols_out': 4}
+  [--] uc03.score.requested_pairs = 748
+  [--] uc03.score.pairs_without_model = 231
+  [ok] uc03.score.rows = 26884 (expected 26884)
+[score/score] uc03_score ...
+[score/score] uc03_score: 0.291s {'rows_out': 26884}
+  [--] uc03.score.label_rows = 38896
+  [--] uc03.score.matched_rows = 26884
+  [--] uc03.score.matched_share_of_labels = 0.6912
+  [--] uc03.score.matched_share_of_predictions = 1.0
+  [--] uc03.score.negative_labels_clipped = 0
+  [ok] uc03.score.msle = 4.0136
+  [--] uc03.score.worst_pairs = {'2|COOK AND DINE': 29.086, '2|BEDDING': 29.065, '10|BATH AND SHOWER': 28.401, '7|HOME DECOR': 23.911, '10|BEDDING': 23.598}
+[train/preprocess] uc08_features_train ...
+[train/preprocess] uc08_features_train: 25.749s {'rows_out': 5200000, 'cols_out': 77}
+[train/check] check_uc08_features_train ...
+[train/check] check_uc08_features_train: 5.008s 
+  [ok] uc08.features.train.rows = 5200000 (expected 5200000)
+  [ok] uc08.features.train.duplicate_order_ids = 0 (expected 0)
+  [--] uc08.features.train.items_outside_kit_departments = 0
+  [--] uc08.features.train.feature_columns = 77
+[serve/preprocess] uc08_features_serve ...
+[serve/preprocess] uc08_features_serve: 4.539s {'rows_out': 520000, 'cols_out': 77}
+[serve/check] check_uc08_features_serve ...
+[serve/check] check_uc08_features_serve: 0.884s 
+  [ok] uc08.features.serve.rows = 520000 (expected 520000)
+  [ok] uc08.features.serve.duplicate_order_ids = 0 (expected 0)
+  [--] uc08.features.serve.items_outside_kit_departments = 0
+  [--] uc08.features.serve.feature_columns = 77
+[score/preprocess] uc08_features_score ...
+[score/preprocess] uc08_features_score: 3.34s {'rows_out': 520000, 'cols_out': 77}
+[score/check] check_uc08_features_score ...
+[score/check] check_uc08_features_score: 0.666s 
+  [ok] uc08.features.score.rows = 520000 (expected 520000)
+  [ok] uc08.features.score.duplicate_order_ids = 0 (expected 0)
+  [--] uc08.features.score.items_outside_kit_departments = 0
+  [--] uc08.features.score.feature_columns = 77
+[train/preprocess] uc08_attach_labels ...
+[train/preprocess] uc08_attach_labels: 9.565s {'rows_out': 5199765, 'cols_out': 77}
+[train/check] check_uc08_labels_after_load ...
+[train/check] check_uc08_labels_after_load: 0.235s 
+  [ok] uc08.train.labels_outside_kit_set = 0 (expected 0)
+  [--] uc08.labels.after_load = {'top_class': 8, 'top_share': 0.1269, 'classes': 38, 'share': {3: 0.0381, 4: 0.0036, 5: 0.0481, 6: 0.0134, 7: 0.0601, 8: 0.1269, 9: 0.0991, 12: 0.0028, 14: 0.0, 15: 0.0103, 18: 0.0057, 19: 0.004, 20: 0.0067, 21: 0.0067, 22: 0.0098, 23: 0.0015, 24: 0.0273, 25: 0.0387, 26: 0.0052, 27: 0.0082, 28: 0.0051, 29: 0.0046, 30: 0.0114, 31: 0.0062, 32: 0.0206, 33: 0.0138, 34: 0.0075, 35: 0.0213, 36: 0.0313, 37: 0.0291, 38: 0.0304, 39: 0.1034, 40: 0.064, 41: 0.006, 42: 0.0194, 43: 0.009, 44: 0.0124, 999: 0.0883}}
+[train/train] uc08_train ...
+2026-11-06 09:45:29,346 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[train/train] uc08_train: 211.866s {'rows_out': 5199765, 'cols_out': 77}
+  [--] uc08.train.rows = 5199765
+  [--] uc08.train.classes = 37
+  [--] uc08.train.xgboost_version = 1.7.3
+  [--] uc08.train.excluded_trip_types = [14]
+  [--] uc08.labels.after_preprocess = {'top_class': 8, 'top_share': 0.1269, 'classes': 37, 'share': {3: 0.0381, 4: 0.0036, 5: 0.0481, 6: 0.0134, 7: 0.0601, 8: 0.1269, 9: 0.0991, 12: 0.0028, 15: 0.0103, 18: 0.0057, 19: 0.004, 20: 0.0067, 21: 0.0067, 22: 0.0098, 23: 0.0015, 24: 0.0273, 25: 0.0387, 26: 0.0052, 27: 0.0082, 28: 0.0051, 29: 0.0046, 30: 0.0114, 31: 0.0062, 32: 0.0206, 33: 0.0138, 34: 0.0075, 35: 0.0213, 36: 0.0313, 37: 0.0291, 38: 0.0304, 39: 0.1034, 40: 0.064, 41: 0.006, 42: 0.0194, 43: 0.009, 44: 0.0124, 999: 0.0883}}
+[serve/predict] uc08_serve_predict ...
+2026-11-06 09:49:01,176 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[serve/predict] uc08_serve_predict: 9.725s {'rows_out': 520000, 'cols_out': 2}
+  [ok] uc08.serve.rows = 520000 (expected 520000)
+[score/predict] uc08_score_predict ...
+2026-11-06 09:49:10,831 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[score/predict] uc08_score_predict: 8.491s {'rows_out': 520000, 'cols_out': 2}
+  [ok] uc08.score.rows = 520000 (expected 520000)
+[score/score] uc08_score ...
+2026-11-06 09:49:19,316 WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+[score/score] uc08_score: 0.705s {'rows_out': 520000}
+  [--] uc08.score.label_rows = 520000
+  [--] uc08.score.matched_rows = 520000
+  [--] uc08.labels.at_score = {'top_class': 8, 'top_share': 0.1269, 'classes': 38, 'share': {3: 0.0379, 4: 0.0036, 5: 0.0484, 6: 0.0136, 7: 0.0604, 8: 0.1269, 9: 0.0985, 12: 0.0029, 14: 0.0001, 15: 0.0104, 18: 0.0058, 19: 0.0039, 20: 0.0066, 21: 0.0067, 22: 0.0099, 23: 0.0013, 24: 0.0271, 25: 0.0386, 26: 0.0053, 27: 0.0083, 28: 0.0054, 29: 0.0045, 30: 0.0113, 31: 0.0061, 32: 0.0207, 33: 0.0138, 34: 0.0075, 35: 0.0214, 36: 0.0314, 37: 0.0292, 38: 0.0304, 39: 0.1031, 40: 0.0636, 41: 0.006, 42: 0.0195, 43: 0.0093, 44: 0.0125, 999: 0.0881}}
+  [ok] uc08.score.accuracy = 0.6934
+[serve/check] check_outputs ...
+  [ok] output.uc03.predictions.columns = ['store', 'department', 'date', 'weekly_sales'] (expected ['store', 'department', 'date', 'weekly_sales'])
+  [ok] output.uc03.predictions.duplicate_keys = 0 (expected 0)
+  [ok] output.uc03.predictions.negative_forecasts = 0 (expected 0)
+  [ok] output.uc03.predictions.missing_values = 0 (expected 0)
+  [ok] output.uc08.predictions.columns = ['o_order_id', 'trip_type'] (expected ['o_order_id', 'trip_type'])
+  [ok] output.uc08.predictions.duplicate_order_ids = 0 (expected 0)
+  [ok] output.uc08.predictions.missing_values = 0 (expected 0)
+  [ok] output.uc03.scoring_predictions.columns = ['store', 'department', 'date', 'weekly_sales'] (expected ['store', 'department', 'date', 'weekly_sales'])
+  [ok] output.uc03.scoring_predictions.duplicate_keys = 0 (expected 0)
+  [ok] output.uc03.scoring_predictions.negative_forecasts = 0 (expected 0)
+  [ok] output.uc03.scoring_predictions.missing_values = 0 (expected 0)
+  [ok] output.uc08.scoring_predictions.columns = ['o_order_id', 'trip_type'] (expected ['o_order_id', 'trip_type'])
+  [ok] output.uc08.scoring_predictions.duplicate_order_ids = 0 (expected 0)
+  [ok] output.uc08.scoring_predictions.missing_values = 0 (expected 0)
+[serve/check] check_outputs: 0.074s 
+
+done: /workspace/runs/sf1_yarn_e2c3_kit_separate
+work time 291.594s, total 332.233s
+  train/preprocess        43.64s
+  train/train            216.53s
+  serve/predict           11.99s
+  score/predict           10.56s
+  score/score              1.00s
+  serve/preprocess         4.54s
+  score/preprocess         3.34s
+checks failed: 0  -> see validation.json

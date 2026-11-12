@@ -1,0 +1,558 @@
+{
+  "run": {
+    "run_id": "sf1_yarn_e2c3_kit_shared",
+    "sf": "1",
+    "mode": "shared",
+    "master": "yarn",
+    "workers": 6,
+    "executors": 2,
+    "driver_memory": "3g",
+    "workloads": "both",
+    "splits": [
+      "train",
+      "serve",
+      "score"
+    ],
+    "spark_version": "4.0.5",
+    "pyspark_version": "4.0.5",
+    "python": "3.10.12",
+    "platform": "Linux-6.12.54-linuxkit-aarch64-with-glibc2.35",
+    "code_version": null,
+    "config": {
+      "train_dir": "hdfs://namenode:9000/tpcxai/sf1/training",
+      "serve_dir": "hdfs://namenode:9000/tpcxai/sf1/serving",
+      "score_dir": "hdfs://namenode:9000/tpcxai/sf1/scoring",
+      "sf": "1",
+      "mode": "shared",
+      "workloads": "both",
+      "workers": 6,
+      "driver_memory": "3g",
+      "shuffle_partitions": null,
+      "sep": ",",
+      "reingest": true,
+      "split_join_timing": false,
+      "runs_dir": "/workspace/runs",
+      "warehouse_dir": "hdfs://namenode:9000/user/hive/warehouse",
+      "metastore_dir": "/workspace/metastore_db",
+      "run_id": "sf1_yarn_e2c3_kit_shared",
+      "default_periods": 52,
+      "seasonal_periods": 52,
+      "fill_missing_weeks": false,
+      "exclude_trip_types": [
+        14
+      ],
+      "master": "yarn",
+      "executors": 2,
+      "executor_cores": 3,
+      "executor_memory": "4g",
+      "metastore_url": null,
+      "state_dir": "/workspace/state",
+      "xgb_estimators": 100,
+      "model_python": "/opt/kitenv/bin/python",
+      "seed": 42
+    },
+    "model_libraries": {
+      "python": "3.9.25",
+      "pandas": "1.5.2",
+      "numpy": "1.23.5",
+      "statsmodels": "0.12.2",
+      "xgboost": "1.7.3"
+    },
+    "started_at": "2026-11-06T09:37:20",
+    "train_date_range": [
+      "2010-01-04",
+      "2012-01-01"
+    ],
+    "serve_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "score_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "finished_at": "2026-11-06T09:43:37",
+    "total_seconds": 376.993,
+    "work_seconds": 354.249,
+    "phase_seconds": {
+      "train/load": 20.829,
+      "serve/load": 3.682,
+      "score/load": 5.092,
+      "train/preprocess": 62.565,
+      "serve/preprocess": 5.774,
+      "score/preprocess": 4.477,
+      "train/train": 227.55,
+      "serve/predict": 11.845,
+      "score/predict": 11.248,
+      "score/score": 1.187
+    },
+    "checks_failed": 0
+  },
+  "stages": [
+    {
+      "stage": "ingest_train_order",
+      "pipeline": "train",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 5200000,
+      "rows_out": 5200000,
+      "cols_out": 4,
+      "seconds": 8.565
+    },
+    {
+      "stage": "ingest_train_lineitem",
+      "pipeline": "train",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 32565017,
+      "rows_out": 32565017,
+      "cols_out": 4,
+      "seconds": 11.781
+    },
+    {
+      "stage": "ingest_train_product",
+      "pipeline": "train",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 1000,
+      "rows_out": 1000,
+      "cols_out": 2,
+      "seconds": 0.483
+    },
+    {
+      "stage": "ingest_serve_order",
+      "pipeline": "serve",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 520000,
+      "rows_out": 520000,
+      "cols_out": 4,
+      "seconds": 1.195
+    },
+    {
+      "stage": "ingest_serve_lineitem",
+      "pipeline": "serve",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 3261300,
+      "rows_out": 3261300,
+      "cols_out": 4,
+      "seconds": 1.871
+    },
+    {
+      "stage": "ingest_serve_product",
+      "pipeline": "serve",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 1000,
+      "rows_out": 1000,
+      "cols_out": 2,
+      "seconds": 0.273
+    },
+    {
+      "stage": "ingest_serve_store_dept",
+      "pipeline": "serve",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 748,
+      "rows_out": 748,
+      "cols_out": 3,
+      "seconds": 0.343
+    },
+    {
+      "stage": "ingest_score_order",
+      "pipeline": "score",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 520000,
+      "rows_out": 520000,
+      "cols_out": 4,
+      "seconds": 1.146
+    },
+    {
+      "stage": "ingest_score_lineitem",
+      "pipeline": "score",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 3261300,
+      "rows_out": 3261300,
+      "cols_out": 4,
+      "seconds": 2.11
+    },
+    {
+      "stage": "ingest_score_product",
+      "pipeline": "score",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 1000,
+      "rows_out": 1000,
+      "cols_out": 2,
+      "seconds": 0.775
+    },
+    {
+      "stage": "ingest_score_store_dept",
+      "pipeline": "score",
+      "phase": "load",
+      "kind": "work",
+      "rows_in": 748,
+      "rows_out": 748,
+      "cols_out": 3,
+      "seconds": 0.32
+    },
+    {
+      "stage": "ingest_score_order_labels",
+      "pipeline": "score",
+      "phase": "load",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 2,
+      "seconds": 0.489
+    },
+    {
+      "stage": "ingest_score_store_dept_labels",
+      "pipeline": "score",
+      "phase": "load",
+      "kind": "work",
+      "rows_out": 38896,
+      "cols_out": 4,
+      "seconds": 0.252
+    },
+    {
+      "stage": "join_train_persist",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 32565017,
+      "cols_out": 8,
+      "seconds": 13.398
+    },
+    {
+      "stage": "join_serve_persist",
+      "pipeline": "serve",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 3261300,
+      "cols_out": 8,
+      "seconds": 1.821
+    },
+    {
+      "stage": "join_score_persist",
+      "pipeline": "score",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 3261300,
+      "cols_out": 8,
+      "seconds": 1.129
+    },
+    {
+      "stage": "check_join_train",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 7.868
+    },
+    {
+      "stage": "uc03_aggregate_weekly",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 53658,
+      "cols_out": 4,
+      "seconds": 3.486
+    },
+    {
+      "stage": "check_uc03_weekly",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 5.682
+    },
+    {
+      "stage": "uc03_train",
+      "pipeline": "train",
+      "phase": "train",
+      "kind": "work",
+      "rows_out": 517,
+      "seconds": 6.171
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "pipeline": "serve",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 2.168
+    },
+    {
+      "stage": "uc03_score_predict",
+      "pipeline": "score",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 2.016
+    },
+    {
+      "stage": "uc03_score",
+      "pipeline": "score",
+      "phase": "score",
+      "kind": "work",
+      "rows_out": 26884,
+      "seconds": 0.245
+    },
+    {
+      "stage": "uc08_features_train",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 5200000,
+      "cols_out": 77,
+      "seconds": 35.575
+    },
+    {
+      "stage": "check_uc08_features_train",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 2.013
+    },
+    {
+      "stage": "uc08_features_serve",
+      "pipeline": "serve",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 77,
+      "seconds": 3.953
+    },
+    {
+      "stage": "check_uc08_features_serve",
+      "pipeline": "serve",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.44
+    },
+    {
+      "stage": "uc08_features_score",
+      "pipeline": "score",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 77,
+      "seconds": 3.348
+    },
+    {
+      "stage": "check_uc08_features_score",
+      "pipeline": "score",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.526
+    },
+    {
+      "stage": "uc08_attach_labels",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 5199765,
+      "cols_out": 77,
+      "seconds": 10.106
+    },
+    {
+      "stage": "check_uc08_labels_after_load",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.572
+    },
+    {
+      "stage": "uc08_train",
+      "pipeline": "train",
+      "phase": "train",
+      "kind": "work",
+      "rows_out": 5199765,
+      "cols_out": 77,
+      "seconds": 221.379
+    },
+    {
+      "stage": "uc08_serve_predict",
+      "pipeline": "serve",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 2,
+      "seconds": 9.677
+    },
+    {
+      "stage": "uc08_score_predict",
+      "pipeline": "score",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 2,
+      "seconds": 9.232
+    },
+    {
+      "stage": "uc08_score",
+      "pipeline": "score",
+      "phase": "score",
+      "kind": "work",
+      "rows_out": 520000,
+      "seconds": 0.942
+    },
+    {
+      "stage": "check_outputs",
+      "pipeline": "serve",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.087
+    }
+  ],
+  "shapes": [
+    {
+      "stage": "ingest_train_order",
+      "rows_out": 5200000,
+      "cols_out": 4
+    },
+    {
+      "stage": "ingest_train_lineitem",
+      "rows_out": 32565017,
+      "cols_out": 4
+    },
+    {
+      "stage": "ingest_train_product",
+      "rows_out": 1000,
+      "cols_out": 2
+    },
+    {
+      "stage": "ingest_serve_order",
+      "rows_out": 520000,
+      "cols_out": 4
+    },
+    {
+      "stage": "ingest_serve_lineitem",
+      "rows_out": 3261300,
+      "cols_out": 4
+    },
+    {
+      "stage": "ingest_serve_product",
+      "rows_out": 1000,
+      "cols_out": 2
+    },
+    {
+      "stage": "ingest_serve_store_dept",
+      "rows_out": 748,
+      "cols_out": 3
+    },
+    {
+      "stage": "ingest_score_order",
+      "rows_out": 520000,
+      "cols_out": 4
+    },
+    {
+      "stage": "ingest_score_lineitem",
+      "rows_out": 3261300,
+      "cols_out": 4
+    },
+    {
+      "stage": "ingest_score_product",
+      "rows_out": 1000,
+      "cols_out": 2
+    },
+    {
+      "stage": "ingest_score_store_dept",
+      "rows_out": 748,
+      "cols_out": 3
+    },
+    {
+      "stage": "ingest_score_order_labels",
+      "rows_out": 520000,
+      "cols_out": 2
+    },
+    {
+      "stage": "ingest_score_store_dept_labels",
+      "rows_out": 38896,
+      "cols_out": 4
+    },
+    {
+      "stage": "join_train_persist",
+      "rows_out": 32565017,
+      "cols_out": 8
+    },
+    {
+      "stage": "join_serve_persist",
+      "rows_out": 3261300,
+      "cols_out": 8
+    },
+    {
+      "stage": "join_score_persist",
+      "rows_out": 3261300,
+      "cols_out": 8
+    },
+    {
+      "stage": "uc03_aggregate_weekly",
+      "rows_out": 53658,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_train",
+      "rows_out": 517,
+      "cols_out": null
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score",
+      "rows_out": 26884,
+      "cols_out": null
+    },
+    {
+      "stage": "uc08_features_train",
+      "rows_out": 5200000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_features_serve",
+      "rows_out": 520000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_features_score",
+      "rows_out": 520000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_attach_labels",
+      "rows_out": 5199765,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_train",
+      "rows_out": 5199765,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_serve_predict",
+      "rows_out": 520000,
+      "cols_out": 2
+    },
+    {
+      "stage": "uc08_score_predict",
+      "rows_out": 520000,
+      "cols_out": 2
+    },
+    {
+      "stage": "uc08_score",
+      "rows_out": 520000,
+      "cols_out": null
+    }
+  ]
+}

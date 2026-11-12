@@ -1,0 +1,312 @@
+{
+  "run": {
+    "run_id": "sf1_kit_separate_w2",
+    "sf": "1",
+    "mode": "separate",
+    "workers": 2,
+    "driver_memory": "3g",
+    "workloads": "both",
+    "splits": [
+      "train",
+      "serve",
+      "score"
+    ],
+    "spark_version": "4.0.5",
+    "pyspark_version": "4.0.5",
+    "python": "3.13.18",
+    "platform": "Linux-6.18.44-fc-v242-x86_64-with-glibc2.39",
+    "code_version": null,
+    "config": {
+      "train_dir": "/home/claude/gen/sf1/training",
+      "serve_dir": "/home/claude/gen/sf1/serving",
+      "score_dir": "/home/claude/gen/sf1/scoring",
+      "sf": "1",
+      "mode": "separate",
+      "workloads": "both",
+      "workers": 2,
+      "driver_memory": "3g",
+      "shuffle_partitions": 16,
+      "sep": ",",
+      "reingest": false,
+      "split_join_timing": false,
+      "runs_dir": "/home/claude/tpcxai-m2/runs",
+      "warehouse_dir": "/home/claude/tpcxai-m2/warehouse",
+      "metastore_dir": "/home/claude/tpcxai-m2/metastore_db",
+      "run_id": "sf1_kit_separate_w2",
+      "default_periods": 52,
+      "seasonal_periods": 52,
+      "fill_missing_weeks": false,
+      "exclude_trip_types": [
+        14
+      ],
+      "xgb_estimators": 100,
+      "model_python": "/home/claude/kitenv/bin/python",
+      "seed": 42
+    },
+    "model_libraries": {
+      "python": "3.9.25",
+      "pandas": "1.5.2",
+      "numpy": "1.23.5",
+      "statsmodels": "0.12.2",
+      "xgboost": "1.7.3"
+    },
+    "started_at": "2026-11-06T09:51:12",
+    "train_date_range": [
+      "2010-01-04",
+      "2012-01-01"
+    ],
+    "serve_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "score_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "finished_at": "2026-11-06T10:12:30",
+    "total_seconds": 1277.98,
+    "work_seconds": 1181.089,
+    "phase_seconds": {
+      "train/preprocess": 178.01,
+      "train/train": 852.833,
+      "serve/predict": 61.11,
+      "score/predict": 60.692,
+      "score/score": 0.371,
+      "serve/preprocess": 15.228,
+      "score/preprocess": 12.845
+    },
+    "checks_failed": 0
+  },
+  "stages": [
+    {
+      "stage": "check_join_train",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 37.576
+    },
+    {
+      "stage": "uc03_aggregate_weekly",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 53658,
+      "cols_out": 4,
+      "seconds": 16.386
+    },
+    {
+      "stage": "check_uc03_weekly",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 33.104
+    },
+    {
+      "stage": "uc03_train",
+      "pipeline": "train",
+      "phase": "train",
+      "kind": "work",
+      "rows_out": 517,
+      "seconds": 5.65
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "pipeline": "serve",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 2.065
+    },
+    {
+      "stage": "uc03_score_predict",
+      "pipeline": "score",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 2.031
+    },
+    {
+      "stage": "uc03_score",
+      "pipeline": "score",
+      "phase": "score",
+      "kind": "work",
+      "rows_out": 26884,
+      "seconds": 0.334
+    },
+    {
+      "stage": "uc08_features_train",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 5200000,
+      "cols_out": 77,
+      "seconds": 129.416
+    },
+    {
+      "stage": "check_uc08_features_train",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 15.767
+    },
+    {
+      "stage": "uc08_features_serve",
+      "pipeline": "serve",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 77,
+      "seconds": 15.228
+    },
+    {
+      "stage": "check_uc08_features_serve",
+      "pipeline": "serve",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 1.678
+    },
+    {
+      "stage": "uc08_features_score",
+      "pipeline": "score",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 77,
+      "seconds": 12.845
+    },
+    {
+      "stage": "check_uc08_features_score",
+      "pipeline": "score",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 1.311
+    },
+    {
+      "stage": "uc08_attach_labels",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 5199765,
+      "cols_out": 77,
+      "seconds": 32.208
+    },
+    {
+      "stage": "check_uc08_labels_after_load",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.236
+    },
+    {
+      "stage": "uc08_train",
+      "pipeline": "train",
+      "phase": "train",
+      "kind": "work",
+      "rows_out": 5199765,
+      "cols_out": 77,
+      "seconds": 847.183
+    },
+    {
+      "stage": "uc08_serve_predict",
+      "pipeline": "serve",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 2,
+      "seconds": 59.045
+    },
+    {
+      "stage": "uc08_score_predict",
+      "pipeline": "score",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 2,
+      "seconds": 58.661
+    },
+    {
+      "stage": "uc08_score",
+      "pipeline": "score",
+      "phase": "score",
+      "kind": "work",
+      "rows_out": 520000,
+      "seconds": 0.037
+    },
+    {
+      "stage": "check_outputs",
+      "pipeline": "serve",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.133
+    }
+  ],
+  "shapes": [
+    {
+      "stage": "uc03_aggregate_weekly",
+      "rows_out": 53658,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_train",
+      "rows_out": 517,
+      "cols_out": null
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score",
+      "rows_out": 26884,
+      "cols_out": null
+    },
+    {
+      "stage": "uc08_features_train",
+      "rows_out": 5200000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_features_serve",
+      "rows_out": 520000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_features_score",
+      "rows_out": 520000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_attach_labels",
+      "rows_out": 5199765,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_train",
+      "rows_out": 5199765,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_serve_predict",
+      "rows_out": 520000,
+      "cols_out": 2
+    },
+    {
+      "stage": "uc08_score_predict",
+      "rows_out": 520000,
+      "cols_out": 2
+    },
+    {
+      "stage": "uc08_score",
+      "rows_out": 520000,
+      "cols_out": null
+    }
+  ]
+}

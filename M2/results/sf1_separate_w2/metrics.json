@@ -1,0 +1,304 @@
+{
+  "run": {
+    "run_id": "sf1_separate_w2",
+    "sf": "1",
+    "mode": "separate",
+    "workers": 2,
+    "driver_memory": "3g",
+    "workloads": "both",
+    "splits": [
+      "train",
+      "serve",
+      "score"
+    ],
+    "spark_version": "4.0.5",
+    "pyspark_version": "4.0.5",
+    "python": "3.13.18",
+    "platform": "Linux-6.18.44-fc-v236-x86_64-with-glibc2.39",
+    "code_version": null,
+    "config": {
+      "train_dir": "/home/claude/gen/sf1/training",
+      "serve_dir": "/home/claude/gen/sf1/serving",
+      "score_dir": "/home/claude/gen/sf1/scoring",
+      "sf": "1",
+      "mode": "separate",
+      "workloads": "both",
+      "workers": 2,
+      "driver_memory": "3g",
+      "shuffle_partitions": 16,
+      "sep": ",",
+      "reingest": false,
+      "split_join_timing": false,
+      "runs_dir": "/home/claude/tpcxai-m2/runs",
+      "warehouse_dir": "/home/claude/tpcxai-m2/warehouse",
+      "metastore_dir": "/home/claude/tpcxai-m2/metastore_db",
+      "run_id": "sf1_separate_w2",
+      "default_periods": 52,
+      "seasonal_periods": 52,
+      "fill_missing_weeks": false,
+      "exclude_trip_types": [
+        14
+      ],
+      "xgb_estimators": 100,
+      "seed": 42
+    },
+    "started_at": "2026-11-06T04:27:29",
+    "train_date_range": [
+      "2010-01-04",
+      "2012-01-01"
+    ],
+    "serve_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "score_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "finished_at": "2026-11-06T04:54:29",
+    "total_seconds": 1620.045,
+    "work_seconds": 1497.694,
+    "phase_seconds": {
+      "train/preprocess": 228.529,
+      "train/train": 1083.252,
+      "serve/predict": 75.208,
+      "score/predict": 74.775,
+      "score/score": 0.362,
+      "serve/preprocess": 18.6,
+      "score/preprocess": 16.968
+    },
+    "checks_failed": 1
+  },
+  "stages": [
+    {
+      "stage": "check_join_train",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 46.899
+    },
+    {
+      "stage": "uc03_aggregate_weekly",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 53658,
+      "cols_out": 4,
+      "seconds": 20.668
+    },
+    {
+      "stage": "check_uc03_weekly",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 40.723
+    },
+    {
+      "stage": "uc03_train",
+      "pipeline": "train",
+      "phase": "train",
+      "kind": "work",
+      "rows_out": 517,
+      "seconds": 25.593
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "pipeline": "serve",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 3.309
+    },
+    {
+      "stage": "uc03_score_predict",
+      "pipeline": "score",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 2.325
+    },
+    {
+      "stage": "uc03_score",
+      "pipeline": "score",
+      "phase": "score",
+      "kind": "work",
+      "rows_out": 26884,
+      "seconds": 0.313
+    },
+    {
+      "stage": "uc08_features_train",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 5200000,
+      "cols_out": 77,
+      "seconds": 167.439
+    },
+    {
+      "stage": "check_uc08_features_train",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 20.902
+    },
+    {
+      "stage": "uc08_features_serve",
+      "pipeline": "serve",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 77,
+      "seconds": 18.6
+    },
+    {
+      "stage": "check_uc08_features_serve",
+      "pipeline": "serve",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 2.14
+    },
+    {
+      "stage": "uc08_features_score",
+      "pipeline": "score",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 77,
+      "seconds": 16.968
+    },
+    {
+      "stage": "check_uc08_features_score",
+      "pipeline": "score",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 1.542
+    },
+    {
+      "stage": "uc08_attach_labels",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 5199765,
+      "cols_out": 77,
+      "seconds": 40.422
+    },
+    {
+      "stage": "check_uc08_labels_after_load",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.347
+    },
+    {
+      "stage": "uc08_train",
+      "pipeline": "train",
+      "phase": "train",
+      "kind": "work",
+      "rows_out": 5199765,
+      "cols_out": 77,
+      "seconds": 1057.659
+    },
+    {
+      "stage": "uc08_serve_predict",
+      "pipeline": "serve",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 2,
+      "seconds": 71.899
+    },
+    {
+      "stage": "uc08_score_predict",
+      "pipeline": "score",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 2,
+      "seconds": 72.45
+    },
+    {
+      "stage": "uc08_score",
+      "pipeline": "score",
+      "phase": "score",
+      "kind": "work",
+      "rows_out": 520000,
+      "seconds": 0.049
+    },
+    {
+      "stage": "check_outputs",
+      "pipeline": "serve",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.154
+    }
+  ],
+  "shapes": [
+    {
+      "stage": "uc03_aggregate_weekly",
+      "rows_out": 53658,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_train",
+      "rows_out": 517,
+      "cols_out": null
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score",
+      "rows_out": 26884,
+      "cols_out": null
+    },
+    {
+      "stage": "uc08_features_train",
+      "rows_out": 5200000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_features_serve",
+      "rows_out": 520000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_features_score",
+      "rows_out": 520000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_attach_labels",
+      "rows_out": 5199765,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_train",
+      "rows_out": 5199765,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_serve_predict",
+      "rows_out": 520000,
+      "cols_out": 2
+    },
+    {
+      "stage": "uc08_score_predict",
+      "rows_out": 520000,
+      "cols_out": 2
+    },
+    {
+      "stage": "uc08_score",
+      "rows_out": 520000,
+      "cols_out": null
+    }
+  ]
+}

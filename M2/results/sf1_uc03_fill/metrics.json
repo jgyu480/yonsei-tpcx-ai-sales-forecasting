@@ -1,0 +1,177 @@
+{
+  "run": {
+    "run_id": "sf1_uc03_fill",
+    "sf": "1",
+    "mode": "shared",
+    "workers": 2,
+    "driver_memory": "3g",
+    "workloads": "uc03",
+    "splits": [
+      "train",
+      "serve",
+      "score"
+    ],
+    "spark_version": "4.0.5",
+    "pyspark_version": "4.0.5",
+    "python": "3.13.18",
+    "platform": "Linux-6.18.44-fc-v242-x86_64-with-glibc2.39",
+    "code_version": null,
+    "config": {
+      "train_dir": "/home/claude/gen/sf1/training",
+      "serve_dir": "/home/claude/gen/sf1/serving",
+      "score_dir": "/home/claude/gen/sf1/scoring",
+      "sf": "1",
+      "mode": "shared",
+      "workloads": "uc03",
+      "workers": 2,
+      "driver_memory": "3g",
+      "shuffle_partitions": 16,
+      "sep": ",",
+      "reingest": false,
+      "split_join_timing": false,
+      "runs_dir": "/home/claude/tpcxai-m2/runs",
+      "warehouse_dir": "/home/claude/tpcxai-m2/warehouse",
+      "metastore_dir": "/home/claude/tpcxai-m2/metastore_db",
+      "run_id": "sf1_uc03_fill",
+      "default_periods": 52,
+      "seasonal_periods": 52,
+      "fill_missing_weeks": true,
+      "exclude_trip_types": [
+        14
+      ],
+      "xgb_estimators": 100,
+      "seed": 42
+    },
+    "started_at": "2026-11-06T09:05:46",
+    "train_date_range": [
+      "2010-01-04",
+      "2012-01-01"
+    ],
+    "serve_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "score_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "finished_at": "2026-11-06T09:07:49",
+    "total_seconds": 122.745,
+    "work_seconds": 78.974,
+    "phase_seconds": {
+      "train/preprocess": 49.32,
+      "train/train": 24.576,
+      "serve/predict": 2.836,
+      "score/predict": 1.969,
+      "score/score": 0.273
+    },
+    "checks_failed": 0
+  },
+  "stages": [
+    {
+      "stage": "join_train_persist",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 32565017,
+      "cols_out": 8,
+      "seconds": 42.285
+    },
+    {
+      "stage": "check_join_train",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 21.176
+    },
+    {
+      "stage": "uc03_aggregate_weekly",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 53658,
+      "cols_out": 4,
+      "seconds": 7.035
+    },
+    {
+      "stage": "check_uc03_weekly",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 12.683
+    },
+    {
+      "stage": "uc03_train",
+      "pipeline": "train",
+      "phase": "train",
+      "kind": "work",
+      "rows_out": 517,
+      "seconds": 24.576
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "pipeline": "serve",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 2.836
+    },
+    {
+      "stage": "uc03_score_predict",
+      "pipeline": "score",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 1.969
+    },
+    {
+      "stage": "uc03_score",
+      "pipeline": "score",
+      "phase": "score",
+      "kind": "work",
+      "rows_out": 26884,
+      "seconds": 0.273
+    },
+    {
+      "stage": "check_outputs",
+      "pipeline": "serve",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.032
+    }
+  ],
+  "shapes": [
+    {
+      "stage": "join_train_persist",
+      "rows_out": 32565017,
+      "cols_out": 8
+    },
+    {
+      "stage": "uc03_aggregate_weekly",
+      "rows_out": 53658,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_train",
+      "rows_out": 517,
+      "cols_out": null
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score",
+      "rows_out": 26884,
+      "cols_out": null
+    }
+  ]
+}
