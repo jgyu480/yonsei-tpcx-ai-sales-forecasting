@@ -72,24 +72,44 @@ python run.py --data-dir data/fake --sf fake --mode shared
 
 ## 3. 실제 데이터 (TPCx-AI 키트 PDGF)
 
-Docker를 쓰면 `docker/gen_data.sh`가 아래 과정을 amd64 + Java 8 컨테이너에서 대신 해준다(12절).
-직접 돌릴 때는 PDGF를 **x86 Linux + Java 8**에서 실행한다. Java 11 이상에서는 `ClassCastException`으로,
-ARM(Apple Silicon)에서는 JHDF5 네이티브 라이브러리가 없어서 실패한다. 처음 실행하면 PDGF 라이선스 동의(Enter 후 `YES`)를 묻는다.
-작업 디렉터리는 키트의 `data-gen/`이어야 한다. 시드·옵션은 키트 드라이버와 같다.
+PDGF는 **x86 Linux + Java 8**에서만 돈다. Java 11 이상에서는 `ClassCastException`으로 실패하고,
+Apple Silicon에서는 네이티브 실행(JHDF5 라이브러리 없음)과 amd64 에뮬레이션(Docker, 초기화 단계에서 멈춤) 모두 안 됐다.
+처음 실행하면 PDGF 라이선스 동의(Enter 후 `YES`)를 묻는다. 작업 디렉터리는 키트의 `data-gen/`이어야 한다.
+
+아래 명령은 키트 드라이버(`driver/tpcxai-driver/data_generation.py`)와 같은 시드·옵션이다. `SF`만 바꿔서 쓴다.
+x86 Linux에 Docker가 있으면 `docker/gen_data.sh <kit> <SF>`가 같은 명령을 Java 8 컨테이너에서 실행한다.
 
 ```bash
 cd <kit>/data-gen
 J=<java8>/bin/java
+SF=1                      # 3, 10 ...
 O="-l config/tpcxai-schema.xml -l config/tpcxai-generation.xml -ns"
 T="order lineitem product store_dept"
 R=<kit>/output/raw_data
 run() { printf '\nYES\n' | $J -Djava.awt.headless=true -Xmx4g -jar ../lib/pdgf/pdgf.jar $O "$@"; }
-run -sf 1 -sp MY_SEED 1234 -sp includeLabels 1.0 -sp TTVF 1.0 -s $T -output "\"$R/training/\""
-run -sf 1 -sp SF_TRAINING 1 -sp MY_SEED 1235 -sp includeLabels 0.0 -sp TTVF 0.1 -s $T -output "\"$R/serving/\""
-run -sf 1 -sp SF_TRAINING 1 -sp MY_SEED 1235 -sp includeLabels 2.0 -sp TTVF 0.1 -s $T order_weekly_sales -output "\"$R/scoring/\""
+run -sf $SF -sp MY_SEED 1234 -sp includeLabels 1.0 -sp TTVF 1.0 -s $T -output "\"$R/training/\""
+run -sf $SF -sp SF_TRAINING $SF -sp MY_SEED 1235 -sp includeLabels 0.0 -sp TTVF 0.1 -s $T -output "\"$R/serving/\""
+run -sf 1 -sp SF_TRAINING $SF -sp MY_SEED $((1234 + SF)) -sp includeLabels 2.0 -sp TTVF 0.1 -s $T order_weekly_sales -output "\"$R/scoring/\""
 ```
 
-학습·서빙·채점은 같은 SF로 만들어야 한다(채점 정답은 `SF_TRAINING`에 의존). 그다음 실행한다.
+**SF별로 달라지는 것** (키트 드라이버와 같음)
+
+| | `-sf` | `SF_TRAINING` | `MY_SEED` | `TTVF` | 크기 |
+| --- | --- | --- | --- | --- | --- |
+| 학습 | SF | (없음) | 1234 | 1.0 | SF에 따라 커짐 |
+| 서빙 | SF | SF | 1235 | 0.1 | SF에 따라 커짐 |
+| 채점 | **1 고정** | SF | **1234 + SF** | 0.1 | **SF와 무관 (order 520,000, lineitem 약 326만)** |
+
+- 채점 데이터는 SF와 상관없이 `-sf 1`로 만든다. `SF_TRAINING`은 채점·서빙 날짜를 학습 기간 다음으로 옮기는 데만 쓰이고
+  행 수에는 영향이 없다(`tpcxai-schema.xml`의 `START_YEAR_OFFSET`). 채점 시드는 `1234 + SF`이므로 SF1이면 1235, SF3이면 1237이다.
+- **SF의 뜻**: 여기서 SF는 PDGF에 직접 주는 `-sf` 값이다. 키트 드라이버의 `-sf`는 데이터 용량(GB)이고, 드라이버가 이를
+  PDGF 값으로 바꿔 넘긴다(드라이버 1 → 0.5, 3 → 2.125, 10 → 12.875, `__main__.py`의 `get_estimated_sf_for_size`).
+  M2의 SF1은 PDGF `-sf 1`이라 학습 주문이 5,200,000건이고, 명세 추정치(3,676,955건)보다 많다(11절). M3도 M2와 비교할 수 있게 PDGF 값으로 SF3, SF10을 만든다.
+- **확인 (11/17)**: x86 Linux + Temurin 8u432에서 `gen_data.sh`의 컨테이너 안 명령을 그대로 돌렸다.
+  SF=1은 M2 SF1 데이터 14개 파일과 바이트 단위로 같았고(md5), SF=3 채점은 order 520,000건, 날짜 범위도 SF1 채점과 같았다(2012-01-02 ~ 2013-12-29).
+  `gen_data.sh`의 Docker 실행 부분은 x86에서 돌려 보지 않았다.
+
+그다음 실행한다.
 
 ```bash
 python run.py --data-dir <kit>/output/raw_data --sf 1 --mode shared --workers 4 --driver-memory 8g
@@ -229,6 +249,7 @@ python -m src.checks.outputs runs/<run_id>                             # 출력�
 - 같은 특성·하이퍼파라미터에서 xgboost 버전만 바꾸면 UC08 예측의 39%가 달라진다(`tools/kit_versions_uc08.py`).
 - 학습 데이터 실제 행 수: order 5,200,000 / lineitem 32,565,017 / product 1,000 / store_dept 748
   (명세 추정치 3,676,955 / 23,026,666 / 707 / 748). 서빙·채점: 각각 order 520,000 / lineitem 3,261,300.
+  추정치보다 많은 것은 PDGF에 `-sf 1`을 직접 줬기 때문이다(키트 드라이버의 SF1은 PDGF `-sf 0.5`, 3절).
 - 같은 키트 버전인데 UC03 MSLE가 x86(3.95)과 Apple Silicon 클러스터(4.01)에서 조금 다르다. 부동소수점 계산 차이로 보이며 둘 다 통과다.
 
 ### UC03 채점 데이터의 한계
@@ -264,13 +285,13 @@ python -m src.checks.outputs runs/<run_id>                             # 출력�
 ### 12.1 실행 방법
 
 준비물: Docker Desktop(Settings > Resources에서 메모리 16GB 이상), 키트 폴더(`tpcx-ai-v2.0.0`).
-이미지는 Apple Silicon에서 네이티브(arm64)로 빌드된다. PDGF만 amd64 에뮬레이션으로 돈다.
+이미지는 Apple Silicon에서 네이티브(arm64)로 빌드된다. 데이터 생성(PDGF)은 Mac에서 안 되므로 따로 준비한다.
 
 ```bash
-# 1) 데이터 준비  -> data/sf1/{training,serving,scoring}
-#    SF1은 팀 드라이브의 sf1_data.tar.gz를 받아 M2/ 에서 푼다 (13절).
-#    새로 만들 때(SF3, SF10)는 x86 Linux에서 실행한다. 아래 참고.
-docker/gen_data.sh ~/Downloads/tpcx-ai-v2.0.0 1
+# 1) 데이터 준비  -> data/sf<SF>/{training,serving,scoring}
+#    SF1: 팀 드라이브의 sf1_data.tar.gz를 받아 M2/ 에서 푼다 (13절).
+#    SF3, SF10: x86 Linux에서 3절 명령이나 아래 스크립트로 만든 뒤 data/sf3/ 등에 복사한다.
+docker/gen_data.sh ~/Downloads/tpcx-ai-v2.0.0 3     # x86 Linux + Docker에서만
 
 # 2) 이미지 빌드(처음 한 번, 약 15분)와 클러스터 시작
 docker compose build
@@ -284,8 +305,8 @@ docker compose exec client docker/run_cluster.sh 1            # [SF] [executors]
 ```
 
 - **데이터 생성 주의**: `docker/gen_data.sh`는 PDGF를 amd64 + Java 8 컨테이너에서 돌린다. Apple Silicon Mac에서는 이 에뮬레이션에서
-  PDGF가 초기화 단계에 멈췄다. M2의 SF1 데이터는 x86 Linux에서 같은 시드로 만들어 `data/sf1/`에 복사한 것이다.
-  SF3·SF10도 x86 Linux(학교 서버, 클라우드 VM 등)에서 만든다.
+  PDGF가 초기화 단계에 멈췄다. M2의 SF1 데이터는 x86 Linux + Java 8에서 3절 명령(SF=1)으로 만들어 `data/sf1/`에 복사한 것이다.
+  SF3·SF10도 x86 Linux(학교 서버, 클라우드 VM 등)에서 만든다. 시드와 채점 데이터 규칙은 3절 표를 따른다.
 
 - 웹 UI: HDFS http://localhost:9870 (DataNode 2대, 블록 위치), YARN http://localhost:8088 (실행 중인 앱, executor 배치),
   Spark http://localhost:4040 (실행 중 단계·셔플).

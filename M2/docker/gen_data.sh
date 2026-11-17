@@ -1,7 +1,10 @@
 #!/bin/bash
-# Generate TPCx-AI data for UC03/UC08 with the kit's PDGF, on the host (macOS or Linux).
+# Generate TPCx-AI data for UC03/UC08 with the kit's PDGF.
 #   docker/gen_data.sh <path to tpcx-ai-v2.0.0> [SF]      -> data/sf<SF>/{training,serving,scoring}
-# PDGF needs x86 + Java 8, so it runs in an amd64 Java 8 container (Rosetta on Apple Silicon).
+# PDGF needs x86 + Java 8, so it runs in an amd64 Java 8 container. Use an x86 Linux host:
+# on Apple Silicon the amd64 emulation hangs during PDGF initialization (README 3, 12.1).
+# SF is the value passed to PDGF -sf (not the kit driver's size in GB). Scoring data is always
+# generated with -sf 1 (fixed size); only SF_TRAINING and the seed (1234 + SF) follow SF.
 # Running this accepts the PDGF license (lib/pdgf/LICENSE.txt), like the kit's first start.
 # Seeds and options are those of the kit driver (driver/tpcxai-driver/data_generation.py).
 set -euo pipefail
