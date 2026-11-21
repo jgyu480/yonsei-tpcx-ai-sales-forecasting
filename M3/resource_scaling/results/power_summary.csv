@@ -1,0 +1,17 @@
+run_id,cluster,samples,mean_active_residency_pct,mean_active_frequency_MHz
+m3_sf1_yarn_e2c1m2g_r7_separate,E,88,68.65,2547.2
+m3_sf1_yarn_e2c1m2g_r7_separate,S,88,99.48,3814.0
+m3_sf1_yarn_e2c2m2g_r7_separate,E,81,76.34,2828.7
+m3_sf1_yarn_e2c2m2g_r7_separate,S,81,99.75,3575.3
+m3_sf1_yarn_e2c3m2g_r7_separate,E,82,81.94,2864.5
+m3_sf1_yarn_e2c3m2g_r7_separate,S,82,99.86,3536.4
+m3_sf1_yarn_e2c4m2g_r7_separate,E,85,83.48,2876.7
+m3_sf1_yarn_e2c4m2g_r7_separate,S,85,99.74,3405.0
+m3_sf1_local1_r7_separate,E,106,59.48,2373.1
+m3_sf1_local1_r7_separate,S,106,99.79,3741.8
+m3_sf1_local2_r7_separate,E,97,66.8,2552.0
+m3_sf1_local2_r7_separate,S,97,99.85,3513.1
+m3_sf1_local4_r7_separate,E,92,76.72,2736.3
+m3_sf1_local4_r7_separate,S,92,99.78,3270.2
+m3_sf1_local8_r7_separate,E,91,81.61,2814.0
+m3_sf1_local8_r7_separate,S,91,99.84,3215.5

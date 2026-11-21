@@ -1,0 +1,362 @@
+{
+  "run": {
+    "run_id": "m3_sf1_yarn_e1c2m3g_r12_shared",
+    "sf": "1",
+    "mode": "shared",
+    "master": "yarn",
+    "workers": 2,
+    "executors": 1,
+    "driver_memory": "3g",
+    "workloads": "both",
+    "splits": [
+      "train",
+      "serve",
+      "score"
+    ],
+    "spark_version": "4.0.5",
+    "pyspark_version": "4.0.5",
+    "python": "3.10.12",
+    "platform": "Linux-7.0.14-linuxkit-aarch64-with-glibc2.35",
+    "code_version": null,
+    "config": {
+      "train_dir": "hdfs://namenode:9000/tpcxai/sf1/training",
+      "serve_dir": "hdfs://namenode:9000/tpcxai/sf1/serving",
+      "score_dir": "hdfs://namenode:9000/tpcxai/sf1/scoring",
+      "sf": "1",
+      "mode": "shared",
+      "workloads": "both",
+      "workers": 2,
+      "driver_memory": "3g",
+      "shuffle_partitions": 24,
+      "sep": ",",
+      "reingest": false,
+      "split_join_timing": false,
+      "runs_dir": "/workspace/runs",
+      "warehouse_dir": "hdfs://namenode:9000/user/hive/warehouse",
+      "metastore_dir": "/workspace/metastore_db",
+      "run_id": "m3_sf1_yarn_e1c2m3g_r12_shared",
+      "default_periods": 52,
+      "seasonal_periods": 52,
+      "fill_missing_weeks": false,
+      "exclude_trip_types": [
+        14
+      ],
+      "master": "yarn",
+      "executors": 1,
+      "executor_cores": 2,
+      "executor_memory": "3g",
+      "metastore_url": null,
+      "state_dir": "/workspace/state",
+      "xgb_estimators": 100,
+      "model_python": "/opt/kitenv/bin/python",
+      "seed": 42
+    },
+    "model_libraries": {
+      "python": "3.9.25",
+      "pandas": "1.5.2",
+      "numpy": "1.23.5",
+      "statsmodels": "0.12.2",
+      "xgboost": "1.7.3"
+    },
+    "started_at": "2026-11-21T15:02:08",
+    "train_date_range": [
+      "2010-01-04",
+      "2012-01-01"
+    ],
+    "serve_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "score_date_range": [
+      "2012-01-02",
+      "2013-12-29"
+    ],
+    "finished_at": "2026-11-21T15:10:00",
+    "total_seconds": 471.563,
+    "work_seconds": 447.902,
+    "phase_seconds": {
+      "train/preprocess": 77.221,
+      "serve/preprocess": 5.845,
+      "score/preprocess": 5.698,
+      "train/train": 327.807,
+      "serve/predict": 15.257,
+      "score/predict": 15.193,
+      "score/score": 0.881
+    },
+    "checks_failed": 0
+  },
+  "stages": [
+    {
+      "stage": "join_train_persist",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 32565017,
+      "cols_out": 8,
+      "seconds": 13.205
+    },
+    {
+      "stage": "join_serve_persist",
+      "pipeline": "serve",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 3261300,
+      "cols_out": 8,
+      "seconds": 1.311
+    },
+    {
+      "stage": "join_score_persist",
+      "pipeline": "score",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 3261300,
+      "cols_out": 8,
+      "seconds": 1.131
+    },
+    {
+      "stage": "check_join_train",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 9.863
+    },
+    {
+      "stage": "uc03_aggregate_weekly",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 53658,
+      "cols_out": 4,
+      "seconds": 3.206
+    },
+    {
+      "stage": "check_uc03_weekly",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 6.102
+    },
+    {
+      "stage": "uc03_train",
+      "pipeline": "train",
+      "phase": "train",
+      "kind": "work",
+      "rows_out": 517,
+      "seconds": 3.255
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "pipeline": "serve",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 1.545
+    },
+    {
+      "stage": "uc03_score_predict",
+      "pipeline": "score",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 26884,
+      "cols_out": 4,
+      "seconds": 1.525
+    },
+    {
+      "stage": "uc03_score",
+      "pipeline": "score",
+      "phase": "score",
+      "kind": "work",
+      "rows_out": 26884,
+      "seconds": 0.204
+    },
+    {
+      "stage": "uc08_features_train",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 5200000,
+      "cols_out": 77,
+      "seconds": 45.499
+    },
+    {
+      "stage": "check_uc08_features_train",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 3.218
+    },
+    {
+      "stage": "uc08_features_serve",
+      "pipeline": "serve",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 77,
+      "seconds": 4.534
+    },
+    {
+      "stage": "check_uc08_features_serve",
+      "pipeline": "serve",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.404
+    },
+    {
+      "stage": "uc08_features_score",
+      "pipeline": "score",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 77,
+      "seconds": 4.567
+    },
+    {
+      "stage": "check_uc08_features_score",
+      "pipeline": "score",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.359
+    },
+    {
+      "stage": "uc08_attach_labels",
+      "pipeline": "train",
+      "phase": "preprocess",
+      "kind": "work",
+      "rows_out": 5199765,
+      "cols_out": 77,
+      "seconds": 15.311
+    },
+    {
+      "stage": "check_uc08_labels_after_load",
+      "pipeline": "train",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.155
+    },
+    {
+      "stage": "uc08_train",
+      "pipeline": "train",
+      "phase": "train",
+      "kind": "work",
+      "rows_out": 5199765,
+      "cols_out": 77,
+      "seconds": 324.552
+    },
+    {
+      "stage": "uc08_serve_predict",
+      "pipeline": "serve",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 2,
+      "seconds": 13.712
+    },
+    {
+      "stage": "uc08_score_predict",
+      "pipeline": "score",
+      "phase": "predict",
+      "kind": "work",
+      "rows_out": 520000,
+      "cols_out": 2,
+      "seconds": 13.668
+    },
+    {
+      "stage": "uc08_score",
+      "pipeline": "score",
+      "phase": "score",
+      "kind": "work",
+      "rows_out": 520000,
+      "seconds": 0.677
+    },
+    {
+      "stage": "check_outputs",
+      "pipeline": "serve",
+      "phase": "check",
+      "kind": "check",
+      "seconds": 0.074
+    }
+  ],
+  "shapes": [
+    {
+      "stage": "join_train_persist",
+      "rows_out": 32565017,
+      "cols_out": 8
+    },
+    {
+      "stage": "join_serve_persist",
+      "rows_out": 3261300,
+      "cols_out": 8
+    },
+    {
+      "stage": "join_score_persist",
+      "rows_out": 3261300,
+      "cols_out": 8
+    },
+    {
+      "stage": "uc03_aggregate_weekly",
+      "rows_out": 53658,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_train",
+      "rows_out": 517,
+      "cols_out": null
+    },
+    {
+      "stage": "uc03_serve_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score_predict",
+      "rows_out": 26884,
+      "cols_out": 4
+    },
+    {
+      "stage": "uc03_score",
+      "rows_out": 26884,
+      "cols_out": null
+    },
+    {
+      "stage": "uc08_features_train",
+      "rows_out": 5200000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_features_serve",
+      "rows_out": 520000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_features_score",
+      "rows_out": 520000,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_attach_labels",
+      "rows_out": 5199765,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_train",
+      "rows_out": 5199765,
+      "cols_out": 77
+    },
+    {
+      "stage": "uc08_serve_predict",
+      "rows_out": 520000,
+      "cols_out": 2
+    },
+    {
+      "stage": "uc08_score_predict",
+      "rows_out": 520000,
+      "cols_out": 2
+    },
+    {
+      "stage": "uc08_score",
+      "rows_out": 520000,
+      "cols_out": null
+    }
+  ]
+}

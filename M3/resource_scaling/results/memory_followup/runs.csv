@@ -1,0 +1,8 @@
+run_id,repeat,mode,validation_failed,executors_added,peak_active_executors,failed_tasks,eligible,spark_preprocess_s,work_s,spill_disk_MiB
+m3_sf1_yarn_e1c2m3g_r10_shared,10,shared,0,1,1,0,1,88.594,411.899,542.6
+m3_sf1_yarn_e1c2m3g_r11_separate,11,separate,0,1,1,0,1,87.921,443.768,230.8
+m3_sf1_yarn_e1c2m3g_r11_shared,11,shared,0,1,1,0,1,89.401,438.87,546.6
+m3_sf1_yarn_e1c2m3g_r12_separate,12,separate,0,1,1,0,1,95.41,463.784,230.8
+m3_sf1_yarn_e1c2m3g_r12_shared,12,shared,0,1,1,0,1,88.764,447.902,600.2
+m3_sf1_yarn_e1c2m3g_r13_separate,13,separate,0,1,1,0,1,86.008,465.601,230.8
+m3_sf1_yarn_e1c2m3g_r13_shared,13,shared,0,1,1,0,1,94.772,484.028,600.2
