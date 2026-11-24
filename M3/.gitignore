@@ -1,0 +1,9 @@
+# Generated TPCx-AI data is TPC-licensed: never commit it (keep only scripts, hashes and logs)
+data/
+sf*/
+*.csv
+*.tar.gz
+*.gz
+# Team documents shared outside the repo
+*.pdf
+.DS_Store

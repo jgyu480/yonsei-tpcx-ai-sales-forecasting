@@ -1,0 +1,34 @@
+openjdk version "1.8.0_432"
+OpenJDK Runtime Environment (Temurin)(build 1.8.0_432-b06)
+kit=/home/minji/Applications/m3/tpcx-ai-v2.0.0  SF=1  -> /home/minji/Works_ub/m3data/data/sf1
+[2026-11-21 21:56:07] training start
+All work done
+Overall time	0H0M16S865ms
+Generated	208.8 MiB
+Speed		12.4 MiB/s
+[2026-11-21 21:56:44] serving start
+All work done
+Overall time	0H0M3S184ms
+Generated	18.6 MiB
+Speed		5.8 MiB/s
+[2026-11-21 21:57:04] scoring start
+All work done
+Overall time	0H0M2S834ms
+Generated	25.2 MiB
+Speed		8.9 MiB/s
+[2026-11-21 21:57:23] done
+  3261301 ./scoring/lineitem.csv
+   520001 ./scoring/order.csv
+   520001 ./scoring/order_labels.csv
+     1001 ./scoring/product.csv
+      749 ./scoring/store_dept.csv
+    38897 ./scoring/store_dept_labels.csv
+  3261301 ./serving/lineitem.csv
+   520001 ./serving/order.csv
+     1001 ./serving/product.csv
+      749 ./serving/store_dept.csv
+ 32565018 ./training/lineitem.csv
+  5200001 ./training/order.csv
+     1001 ./training/product.csv
+      749 ./training/store_dept.csv
+ 45891771 total

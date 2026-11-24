@@ -1,0 +1,14 @@
+3f556d058a7a9f7a911ee166c39a3d83  ./scoring/lineitem.csv
+c6973293ed9f23f8d0a4364b6af76746  ./scoring/order.csv
+b3419a730a7708d4cd853cdf403000c1  ./scoring/order_labels.csv
+853776a504e65a625b2a01f120a1f0db  ./scoring/product.csv
+7458b5a423e7b62175813161ac5c6b03  ./scoring/store_dept.csv
+1e064b638846febb311dcde5b319d2ad  ./scoring/store_dept_labels.csv
+3f556d058a7a9f7a911ee166c39a3d83  ./serving/lineitem.csv
+c6973293ed9f23f8d0a4364b6af76746  ./serving/order.csv
+853776a504e65a625b2a01f120a1f0db  ./serving/product.csv
+7458b5a423e7b62175813161ac5c6b03  ./serving/store_dept.csv
+bc33cd2eaf0b85cf268b142133c768dc  ./training/lineitem.csv
+cdb934da2d7e5663e9bc1393562cf2c0  ./training/order.csv
+50ad4975f9fe8cab12d99e9c42d06b1f  ./training/product.csv
+d3e6145f14ea51067f347258a3b396ac  ./training/store_dept.csv

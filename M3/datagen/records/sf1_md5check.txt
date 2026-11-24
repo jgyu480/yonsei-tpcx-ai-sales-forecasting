@@ -1,0 +1,14 @@
+./scoring/lineitem.csv: OK
+./scoring/order.csv: OK
+./scoring/order_labels.csv: OK
+./scoring/product.csv: OK
+./scoring/store_dept.csv: OK
+./scoring/store_dept_labels.csv: OK
+./serving/lineitem.csv: OK
+./serving/order.csv: OK
+./serving/product.csv: OK
+./serving/store_dept.csv: OK
+./training/lineitem.csv: OK
+./training/order.csv: OK
+./training/product.csv: OK
+./training/store_dept.csv: OK

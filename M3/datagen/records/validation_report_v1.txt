@@ -1,0 +1,94 @@
+===== SF1 (/home/minji/Works_ub/m3data/data/sf1)
+  OK   log: 'All work done': 3
+  OK   log: Exception lines: 0
+  OK   log: done marker
+  OK   file count: 14
+  FAIL header serving/store_dept: store,department,periods
+  OK   training product rows: 1000
+  OK   training store_dept rows: 748
+  OK   training order rows: 5200000
+  OK   training order: ids 1..N, fields, dates valid (2010-01-04~2012-01-01)
+  OK   training lineitem: 32565017 rows, all 5200000 orders covered, ids/product refs valid
+  OK   serving product rows: 1000
+  OK   serving store_dept rows: 748
+  OK   serving order rows: 520000
+  OK   serving order: ids 1..N, fields, dates valid (2012-01-02~2013-12-29)
+  OK   serving lineitem: 3261300 rows, all 520000 orders covered, ids/product refs valid
+  OK   scoring product rows: 1000
+  OK   scoring store_dept rows: 748
+  OK   scoring order rows: 520000
+  OK   scoring order: ids 1..N, fields, dates valid (2012-01-02~2013-12-29)
+  OK   scoring lineitem: 3261300 rows, all 520000 orders covered, ids/product refs valid
+  OK   scoring order_labels: 520000 ids match orders
+  OK   scoring store_dept_labels rows: 38896
+===== SF3 (/home/minji/Works_ub/m3data/data/sf3)
+  OK   log: 'All work done': 3
+  OK   log: Exception lines: 0
+  OK   log: done marker
+  OK   file count: 14
+  FAIL header serving/store_dept: store,department,periods
+  OK   training product rows: 1732
+  OK   training store_dept rows: 816
+  OK   training order rows: 9006664
+  OK   training order: ids 1..N, fields, dates valid (2010-01-04~2012-01-01)
+  OK   training lineitem: 56387690 rows, all 9006664 orders covered, ids/product refs valid
+  OK   serving product rows: 1732
+  OK   serving store_dept rows: 816
+  OK   serving order rows: 900666
+  OK   serving order: ids 1..N, fields, dates valid (2012-01-02~2013-12-29)
+  OK   serving lineitem: 5640803 rows, all 900666 orders covered, ids/product refs valid
+  OK   scoring product rows: 1000
+  OK   scoring store_dept rows: 748
+  OK   scoring order rows: 520000
+  OK   scoring order: ids 1..N, fields, dates valid (2012-01-02~2013-12-29)
+  OK   scoring lineitem: 3252330 rows, all 520000 orders covered, ids/product refs valid
+  OK   scoring order_labels: 520000 ids match orders
+  OK   scoring store_dept_labels rows: 38896
+===== SF9 (/home/minji/Works_ub/m3data/data/sf9)
+  OK   log: 'All work done': 3
+  OK   log: Exception lines: 0
+  OK   log: done marker
+  OK   file count: 14
+  FAIL header serving/store_dept: store,department,periods
+  OK   training product rows: 3000
+  OK   training store_dept rows: 884
+  OK   training order rows: 15600000
+  OK   training order: ids 1..N, fields, dates valid (2010-01-04~2012-01-01)
+  OK   training lineitem: 97680906 rows, all 15600000 orders covered, ids/product refs valid
+  OK   serving product rows: 3000
+  OK   serving store_dept rows: 884
+  OK   serving order rows: 1560000
+  OK   serving order: ids 1..N, fields, dates valid (2012-01-02~2013-12-29)
+  OK   serving lineitem: 9773645 rows, all 1560000 orders covered, ids/product refs valid
+  OK   scoring product rows: 1000
+  OK   scoring store_dept rows: 748
+  OK   scoring order rows: 520000
+  OK   scoring order: ids 1..N, fields, dates valid (2012-01-02~2013-12-29)
+  OK   scoring lineitem: 3259283 rows, all 520000 orders covered, ids/product refs valid
+  OK   scoring order_labels: 520000 ids match orders
+  OK   scoring store_dept_labels rows: 38896
+===== SF10 (/home/minji/Works_ub/m3data/data/sf10)
+  OK   log: 'All work done': 3
+  OK   log: Exception lines: 0
+  OK   log: done marker
+  OK   file count: 14
+  FAIL header serving/store_dept: store,department,periods
+  OK   training product rows: 3162
+  OK   training store_dept rows: 884
+  OK   training order rows: 24665765
+  OK   training order: ids 1..N, fields, dates valid (2010-01-04~2012-12-30)
+  OK   training lineitem: 154443824 rows, all 24665765 orders covered, ids/product refs valid
+  OK   serving product rows: 3162
+  OK   serving store_dept rows: 884
+  OK   serving order rows: 2466576
+  OK   serving order: ids 1..N, fields, dates valid (2012-12-31~2015-12-27)
+  OK   serving lineitem: 15458093 rows, all 2466576 orders covered, ids/product refs valid
+  OK   scoring product rows: 1000
+  OK   scoring store_dept rows: 748
+  OK   scoring order rows: 520000
+  OK   scoring order: ids 1..N, fields, dates valid (2012-12-31~2014-12-28)
+  OK   scoring lineitem: 3251028 rows, all 520000 orders covered, ids/product refs valid
+  OK   scoring order_labels: 520000 ids match orders
+  OK   scoring store_dept_labels rows: 38896
+
+SOME CHECKS FAILED
