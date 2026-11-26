@@ -72,5 +72,6 @@ M3/datagen/validate_sf.sh ~/Works_ub/m3data/data ~/Works_ub/m3data 1 3 9 10
 | `sf<SF>_data.tar.gz.sha256`, `sf<SF>.sha256`, `gen_sf<SF>.log`, `validation_report.txt` | |
 
 압축은 `tar -czf sf<SF>_data.tar.gz -C data sf<SF>`라서 풀면 `sf<SF>/{training,serving,scoring}`이 생긴다.
-SF1은 Mac의 `M2/data/sf1`(팀 드라이브 `sf1_data.tar.gz`)과 같으므로 보내지 않았다. Mac에서 받는 순서는 [M3_PLAN.md](../M3_PLAN.md) 5.0절.
+SF1은 Mac의 `M2/data/sf1`(팀 드라이브 `sf1_data.tar.gz`)과 같으므로 보내지 않았다(Mac에서 `M3/m3data/sf1`로 복사).
+Mac에서는 `M3/m3data/`에 복사해 풀고 확인한다: [M3_PLAN.md](../M3_PLAN.md) 5.0절.
 VM 원본(`~/Works_ub/m3data/data/`)은 Mac 확인이 끝날 때까지 지우지 않는다.

@@ -1,0 +1,10 @@
+# M3 override: M2 compose 파일은 그대로 두고 client 컨테이너에 M3/ 를 /m3 으로 추가 mount 한다.
+#   /m3/m3data/sf<SF>  2번 축 입력 데이터 (M3/m3data, gitignore)
+#   /m3/runs/          2번 축 실행 결과   (M3/runs,   gitignore)
+# M2/ 에서 (상대 경로는 첫 compose 파일 위치 = M2/ 기준으로 해석된다):
+#   export COMPOSE_FILE=docker-compose.yml:../M3/docker/compose.m3.yml
+#   docker compose config | grep -A1 '/m3'     # mount 확인
+services:
+  client:
+    volumes:
+      - ../M3:/m3

@@ -7,3 +7,9 @@ sf*/
 # Team documents shared outside the repo
 *.pdf
 .DS_Store
+# M3 작업 폴더 (데이터 압축본·해시, 2번 축 실행 결과). 보고서용 요약만 results/ 로 복사
+m3data/
+runs/
+# 보고서용 실행 요약·집계 CSV는 저장소에 넣는다 (위 *.csv 규칙의 예외)
+!results/**/*.csv
+!analysis/**/*.csv
