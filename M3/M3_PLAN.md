@@ -123,7 +123,7 @@ Docker Desktop 자원: 메모리 16GB(M2 README), CPU는 M2 측정 때와 같게
 ```bash
 cd <저장소>/M2
 export COMPOSE_FILE=docker-compose.yml:../M3/docker/compose.m3.yml   # ★ 새 터미널마다. 빠뜨리면 /m3 가 없다
-docker compose config | grep -B1 -A1 ':/m3'                         # client 에 ../M3:/m3 mount 확인
+docker compose config | grep -B2 -A2 'target: /m3'                 # client 에 source: .../M3, target: /m3 가 보이면 됨
 docker images | grep tpcxai-hadoop || docker compose build           # 이미지 없으면 빌드(약 15분)
 docker compose up -d
 docker compose exec client bash -c 'cd /m3/m3data/sf1 && md5sum -c --quiet /m3/datagen/records/sf1_reference.md5 && echo "SF1 14/14 OK"'

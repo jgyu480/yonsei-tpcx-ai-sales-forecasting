@@ -3,7 +3,7 @@
 #   /m3/runs/          2번 축 실행 결과   (M3/runs,   gitignore)
 # M2/ 에서 (상대 경로는 첫 compose 파일 위치 = M2/ 기준으로 해석된다):
 #   export COMPOSE_FILE=docker-compose.yml:../M3/docker/compose.m3.yml
-#   docker compose config | grep -A1 '/m3'     # mount 확인
+#   docker compose config | grep -B2 -A2 'target: /m3'     # mount 확인 (출력은 source:/target: 형식)
 services:
   client:
     volumes:
