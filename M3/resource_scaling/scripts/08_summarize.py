@@ -1,4 +1,4 @@
-"""Summarize the 45 measured runs by setting, including Spark disk spill."""
+"""Summarize the planned runs by setting, including Spark disk spill."""
 import argparse
 import csv
 import re
@@ -16,7 +16,14 @@ GROUPS = [
     ("local", [(c, "separate") for c in LOCAL]),
     ("core", [(c, m) for c in CORE for m in ("separate", "shared")]),
 ]
-RUN = re.compile(r"m3_sf1_(.+)_r([123])_(separate|shared)")
+REPEATS = (1, 2, 3)
+RUN = re.compile(r"m3_sf1_(.+)_r(\d+)_(separate|shared)")
+PLANNED_SETTINGS = {setting for _, group in GROUPS for setting in group}
+
+
+def planned_run_ids():
+    return {f"m3_sf1_{config}_r{repeat}_{mode}"
+            for config, mode in PLANNED_SETTINGS for repeat in REPEATS}
 
 
 def summarize(source, output, allow_partial):
@@ -24,7 +31,7 @@ def summarize(source, output, allow_partial):
     with (source / "all_stages.csv").open(newline="") as f:
         for row in csv.DictReader(f):
             run = RUN.fullmatch(row["run_id"])
-            if not run or row["kind"] != "work":
+            if not run or int(run[2]) not in REPEATS or row["kind"] != "work":
                 continue
             seconds = float(row["seconds"])
             values = by_run[row["run_id"]]
@@ -45,14 +52,14 @@ def summarize(source, output, allow_partial):
             raise ValueError(f"Missing Spark task data for {rid}")
         values["spill_disk_MiB"] = float(event["spill_disk_MB"])
         settings[config, mode].append((repeat, values))
-    planned = {setting for _, group in GROUPS for setting in group}
-    if set(settings) != planned or (not allow_partial and len(by_run) != 45):
-        raise ValueError(f"Expected all planned settings and 45 runs. Found {len(by_run)} runs.")
+    expected = planned_run_ids()
+    if set(settings) != PLANNED_SETTINGS or set(by_run) - expected or (not allow_partial and set(by_run) != expected):
+        raise ValueError(f"Expected the planned settings and {len(expected)} runs. Found {len(by_run)} runs.")
     metrics = ("spark_preprocess", "uc08_train", "predict_score_etc", "work_total", "spill_disk_MiB")
     stats = {}
     for key, observations in settings.items():
         repeats, values = zip(*observations)
-        if not allow_partial and set(repeats) != {"1", "2", "3"}:
+        if not allow_partial and set(repeats) != {str(repeat) for repeat in REPEATS}:
             raise ValueError(f"{key} has repeats {repeats}")
         stats[key] = {"n": len(values)}
         for metric in metrics:

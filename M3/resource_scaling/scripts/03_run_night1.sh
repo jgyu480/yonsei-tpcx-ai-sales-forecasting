@@ -1,7 +1,7 @@
 #!/bin/bash
 # [본 측정 1/2] 반복 1, 2회차: 핵심 + ① scale-out + ② scale-up  (약 4~5시간)
 #   bash scripts/03_run_night1.sh
-# 시작 전: 전원 연결, 다른 앱 종료, 저전력 모드 끔, (선택) 다른 터미널에서 powermetrics 기록 시작 (README 6절)
+# 시작 전: 전원 연결, 다른 앱 종료, 저전력 모드 끔, (선택) 다른 터미널에서 powermetrics 기록 시작 (README의 P/E 코어 관측 참고)
 set -euo pipefail
 cd "${WORK:-$HOME/m3work}/yonsei-tpcx-ai-sales-forecasting/M2"
 REPS="${REPS:-1 2}"

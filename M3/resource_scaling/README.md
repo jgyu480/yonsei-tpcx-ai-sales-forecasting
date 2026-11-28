@@ -23,11 +23,13 @@ bash scripts/05_collect.sh  # 후속 측정 전에는 분석 대상 41건
 
 ```bash
 bash scripts/07_rerun.sh
-python3 -m pip install matplotlib zstandard
+python3 -m pip install -r requirements.txt
 REPORT_STABILITY=1 bash scripts/10_prepare_results.sh  # 45건 보존 및 성능 집계
 python3 scripts/13_summarize_power.py \
   results/powermetrics_r7.log results/powermetrics_windows.csv results/power_summary.csv
 ```
+
+### P/E 코어 관측
 
 `RERUN_PHASE=timing`으로 교체·로컬 3회차만, `RERUN_PHASE=power`로 P/E 코어 관측만 실행할 수 있다. 두 단계는 순서대로 실행한다. `power_summary.csv`는 대기 시간을 제외한 r7 실행 구간의 호스트 전체 코어 클러스터 사용률을 담는다.
 
@@ -48,7 +50,7 @@ SF1 압축 파일과 원본 데이터, 원본 Spark 이벤트 및 powermetrics �
 기존 SF1 클러스터가 준비된 상태에서, `M3/resource_scaling` 폴더에서 실행한다.
 
 ```bash
-python3 -m pip install zstandard
+python3 -m pip install -r requirements.txt
 bash scripts/14_memory_followup.sh
 python3 scripts/15_summarize_memory.py \
   --runs "${WORK:-$HOME/m3work}/yonsei-tpcx-ai-sales-forecasting/M2/runs" \
@@ -68,3 +70,11 @@ python3 scripts/16_event_metrics.py \
 ```
 
 `run_metrics.csv`는 실행별 지표, `worker_metrics.csv`는 실행·워커별 지표, `validation_summary.csv`는 검증 결과와 모델 점수, `summary_by_config.csv`는 교체 없는 실행의 설정별 평균이다. 지표는 Spark 태스크만 대상으로 하며 별도 Python 프로세스에서 도는 UC08 학습은 포함하지 않는다.
+
+## 결과 범위와 측정 한계
+
+기존 시간 분석은 45건 중 executor 교체 2건을 제외한 43건이다. P/E 관측 8건과 3 GiB 보충 실험 7건은 별도로 보고한다. 현재 계획에 남은 재측정은 없다.
+
+`e2c2m2g r1`의 separate와 shared를 M2의 `tools/compare_runs.py`로 비교했다. UC03·UC08의 예측과 채점용 예측 파일 4개 모두 `same`이었다. 이 비교는 해당 실행 쌍에 한정한다.
+
+설정별 client·worker 컨테이너 최대 메모리는 기록하지 않았다. Spark 이벤트의 executor 메모리 지표는 컨테이너 전체 메모리와 구분한다. UC08이 느렸던 후속 측정은 같은 배치에서 순차 실행했고 각 실행 전 120초씩 대기했다. 열 상태 로그에는 경고가 없었으나, 실행 중 클럭 저하나 다른 프로그램의 영향을 확인할 수 없다.

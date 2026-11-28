@@ -47,7 +47,7 @@ if [ ! -f data/sf1/training/lineitem.csv ]; then
   fi
 fi
 for f in training/lineitem.csv training/order.csv serving/lineitem.csv scoring/order_labels.csv; do
-  [ -f "data/sf1/$f" ] || { echo "없음: data/sf1/$f  (README 2절 참고)"; exit 1; }
+  [ -f "data/sf1/$f" ] || { echo "없음: data/sf1/$f  (README의 자원 확장 실험 실행 참고)"; exit 1; }
 done
 
 cp "$HERE/m3_resource.sh" docker/ && chmod +x docker/m3_resource.sh
